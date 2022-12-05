@@ -1,0 +1,74 @@
+body{
+    background-color: #f3f3f3;
+    padding: 0% 2%;
+}
+
+table{
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+}
+
+tr{
+    border: 5px solid black;
+}
+
+td{
+    border: 1px solid black;
+}
+
+.grandeepee{
+    width:30px;
+}
+
+.btn_leger{
+    min-width: 80px;
+    width: fit-content;
+    height: 25px;
+    background-color: bisque;
+}
+
+.nom_arbre{
+    padding: 5px 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*************
+ Couleurs
+ *************
+
+.rare1{
+    background-color: white;
+}
+.rare2{
+    background-color: rgb(127, 0, 127);
+}
+.rare3{
+    background-color: #f2f700;
+}
+.rare4{
+    background-color: rgb(255, 0, 190);
+}
+.rare5{
+    background-color: rgb(127, 255, 127);
+}
+.rare6{
+    background-color: rgb(0, 0, 255);
+}
+.rare7{
+    background-color: rgb(255, 0, 0);
+}
+.rare8{
+    background-color: rgb(0, 125, 255);
+}
+.rare9{
+    background-color: rgb(255, 125, 0);
+}
+.rare10{
+    background-color: rgb(255, 0 , 122);
+}
+.rareX{
+    background-color: rgb(190, 0, 190);
+}
+/**************/
