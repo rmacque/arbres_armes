@@ -1,4 +1,4 @@
-# arbres_armesMHGU
+# arbres_armes
 
 Petite page en js pour afficher l'arborescence des différentes armes de MHGU
 (entraînement/révision)
