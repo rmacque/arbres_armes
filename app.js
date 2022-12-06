@@ -1,10 +1,14 @@
-function draw_ligne_verticale(element){
+function draw_ligne_verticale_canva(element){
     let ctx = element.getContext('2d');
     ctx.fillRect(0, 0, 5, 30);
     ctx.fillStyle = 'black';
 }
 
-function draw_angledroit(element){
+function draw_ligne_verticale_span(element){
+    // à faire
+}
+
+function draw_angledroit_canva(element){
     console.log(element);
     let ctx = element.getContext('2d');
     ctx.beginPath();
@@ -29,12 +33,46 @@ function parentNodeNiv(node, niveau){
     return res;
 }
 
+function row_build(){
+    let row = document.createElement("tr");
+    let tmp = document.createElement("td");
+    for (let index = 0; index < 8; index++) {
+        row.insertCell(tmp); 
+    }
+    row.childNodes[7].innerHTML = "---";
+    row.childNodes[6].innerHTML = "---";
+    row.childNodes[5].innerHTML = "0%";
+    row.childNodes[4].innerHTML = "---";
+    row.childNodes[3].innerHTML = "tranchant"
+    row.childNodes[2].innerHTML = "70"
+    row.childNodes[1].innerHTML = "Epee de fer"
+    row.childNodes[0].innerHTML = "<div><img alt=\"ne marche pas\" src=\"images/grandeepee.png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\">supprimer</button></div>";
+    //row.appendChild(document.createElement("td").innerHTML = "aaaa");
+    let rowstr = "<td><div><img alt=\"ne marche pas\" src=\"images/grandeepee.png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\">supprimer</button></div></td><td>---</td><td>---</td><td>tranchant</td><td>---</td><td>0%</td><td>---</td><td>---</td>";
+    return row;
+}
+
+function row_append(index){
+    let row = row_build();
+    row.getElementsByClassName("supprimer")[0].addEventListener(onclick, function(){
+        parentNodeNiv(this,3).remove();
+    });
+    row.getElementsByClassName("amelioration")[0].addEventListener(onclick, function(){
+        parentNodeNiv(this,5).insertRow(parentNodeNiv(this, 3).index + 1).innerHTML = row_append(index+1);
+    })
+    //console.log(row);
+    return row;
+}
+
 ArrayAmelioration = document.getElementsByClassName("amelioration")
 
 for (let i = 0; i < ArrayAmelioration.length; i++) {
     ArrayAmelioration[i].onclick = function(){
-        console.log(parentNodeNiv(this, 3))
-        parentNodeNiv(this, 5).insertRow(parentNodeNiv(this, 3).rowIndex + 1).insertCell(0).innerHTML = "blala"
+        let index = parentNodeNiv(this, 3).rowIndex;
+        //console.log(parentNodeNiv(this, 3))
+        console.log(parentNodeNiv(this, 3));
+        //parentNodeNiv(this, 3).
+        parentNodeNiv(this, 5).insertRow(index + 1).innerHTML = row_append(index + 1);
     };
 }
 
@@ -46,23 +84,16 @@ for (let i = 0; i < ArraySuppr.length; i++){
     }
 }
 
-function row_build(index){
-    let tr = document.createElement("tr");
-    let tabTD = []
-    for(let i = 0; i<8; i++){
-        tabTD[i] = document.createElement("td");
-    }
+/*
+let btnA = document.createElement("button");
+btnA.value = "amelioration";
+btnA.classList = "btn_leger amelioration";
+btnA.addEventListener(onclick, function(){
 
-    console.log(tabTD[0]);
-    return tr;
-}
+});
+console.log(btnA);
+*/
 
-function row_append(){
-
-}
-
-
-row_build();
 /*
 function tableaux_armes(nom){
     <tr class="titre"><td colspan="8">
