@@ -4,10 +4,6 @@ function draw_ligne_verticale_canva(element){
     ctx.fillStyle = 'black';
 }
 
-function draw_ligne_verticale_span(element){
-    // à faire
-}
-
 function draw_angledroit_canva(element){
     console.log(element);
     let ctx = element.getContext('2d');
@@ -33,81 +29,47 @@ function parentNodeNiv(node, niveau){
     return res;
 }
 
-function row_build(){
-    let row = document.createElement("tr");
-    let tmp = document.createElement("td");
-    for (let index = 0; index < 8; index++) {
-        row.insertCell(tmp); 
+function row_append(table, index, descendant = 1, img = "grandeepee"){
+    let html = "<div class=\"esthetique\">";
+    let row = table.insertRow(index);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    let cell4 = row.insertCell(3);
+    let cell5 = row.insertCell(4);
+    let cell6 = row.insertCell(5);
+    let cell7 = row.insertCell(6);
+    let cell8 = row.insertCell(7);
+    for(let i = 0; i< descendant - 1; i++){
+        html += "<span class=\"descendant\"></span>";
     }
-    row.childNodes[7].innerHTML = "---";
-    row.childNodes[6].innerHTML = "---";
-    row.childNodes[5].innerHTML = "0%";
-    row.childNodes[4].innerHTML = "---";
-    row.childNodes[3].innerHTML = "tranchant"
-    row.childNodes[2].innerHTML = "70"
-    row.childNodes[1].innerHTML = "Epee de fer"
-    row.childNodes[0].innerHTML = "<div><img alt=\"ne marche pas\" src=\"images/grandeepee.png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\">supprimer</button></div>";
-    //row.appendChild(document.createElement("td").innerHTML = "aaaa");
-    let rowstr = "<td><div><img alt=\"ne marche pas\" src=\"images/grandeepee.png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\">supprimer</button></div></td><td>---</td><td>---</td><td>tranchant</td><td>---</td><td>0%</td><td>---</td><td>---</td>";
-    return row;
-}
+    html += "<span class=\"enfant\"></span><img alt=\"ne marche pas\" src=\"images/"+ img +".png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\">supprimer</button></div>";
+    cell1.innerHTML = html;
+    cell2.innerHTML = "&Eacute;Name";
+    cell3.innerHTML = "Nan";
+    cell4.innerHTML = "tranchant";
+    cell5.innerHTML = "---";
+    cell6.innerHTML = "0%";
+    cell7.innerHTML = "---";
+    cell8.innerHTML = "---";
 
-function row_append(index){
-    let row = row_build();
-    row.getElementsByClassName("supprimer")[0].addEventListener(onclick, function(){
+    //on attache les fonctions aux boutons
+    if(!(row.rowIndex % 2)){
+        row.classList += "impair" ;
+    }
+    console.log(row);
+    row.getElementsByClassName("supprimer")[0].onclick = function(){
         parentNodeNiv(this,3).remove();
-    });
-    row.getElementsByClassName("amelioration")[0].addEventListener(onclick, function(){
-        parentNodeNiv(this,5).insertRow(parentNodeNiv(this, 3).index + 1).innerHTML = row_append(index+1);
-    })
-    //console.log(row);
-    return row;
-}
-
-ArrayAmelioration = document.getElementsByClassName("amelioration")
-
-for (let i = 0; i < ArrayAmelioration.length; i++) {
-    ArrayAmelioration[i].onclick = function(){
-        let index = parentNodeNiv(this, 3).rowIndex;
-        //console.log(parentNodeNiv(this, 3))
-        console.log(parentNodeNiv(this, 3));
-        //parentNodeNiv(this, 3).
-        parentNodeNiv(this, 5).insertRow(index + 1).innerHTML = row_append(index + 1);
+    };
+    row.getElementsByClassName("amelioration")[0].onclick = function(){
+        row_append(parentNodeNiv(this, 5), parentNodeNiv(this, 3).rowIndex + 1, descendant + 1);
     };
 }
 
-ArraySuppr = document.getElementsByClassName("supprimer")
-
-for (let i = 0; i < ArraySuppr.length; i++){
-    ArraySuppr[i].onclick = function(){
-        parentNodeNiv(this, 3).remove()
-    }
+function section_create(table, titre, img){
+    //1ere et 2eme ligne
+    let chaine = "<tr class=\"titre\"><td colspan=\"8\" class=\"nom_arbre\">Arbre "+titre+"</td></tr><tr class=\"caracteristiques\"><td>Rareté et arborescence</td><td>Nom</td><td>Dégâts</td><td>Tranchant</td><td>Attribut</td><td>Affinité</td><td>Fentes</td><td>Bonus</td></tr>";
+    //3eme ligne
+    chaine += "<tr><td><span class=\"origine\"></span><img alt=\"ne marche pas\" src=\"images/"+ img +".png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button></div></td><td>&Eacute;Name</td><td>Nan</td><td>Lorem</td><td>---</td><td>0%</td><td>---</td><td>---</td></tr>"
+    table.innerHTML += chaine
 }
-
-/*
-let btnA = document.createElement("button");
-btnA.value = "amelioration";
-btnA.classList = "btn_leger amelioration";
-btnA.addEventListener(onclick, function(){
-
-});
-console.log(btnA);
-*/
-
-/*
-function tableaux_armes(nom){
-    <tr class="titre"><td colspan="8">
-        <td><h1>nom</h1></td>
-    </tr>
-    <tr class="caracteristiques">
-        <td>Rareté et arborescence</td>
-        <td>Nom</td>
-        <td>Dégâts</td>
-        <td>Tranchant</td>
-        <td>Attribut</td>
-        <td>Affinité</td>
-        <td>Fentes</td>
-        <td>Bonus</td>
-    </tr>
-}
-*/
