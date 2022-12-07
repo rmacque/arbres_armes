@@ -3,14 +3,59 @@ body{
     padding: 0% 2%;
 }
 
+nav{
+    padding: 30px;
+}
+
+nav a{
+    /*
+    display: inline-block;
+    margin: 10px;
+    min-width: 150px;
+    */
+}
+
 table{
     border-collapse: collapse;
     text-align: center;
     width: 100%;
 }
 
+.titre{
+    background-color: blue;
+    color:white;
+}
+
+table img{
+    float: right;
+}
+
 tr{
-    border: 5px solid black;
+    border: 1px solid black;
+    
+}
+
+.esthetique{
+    height: 40px;
+}
+
+span{
+    float: left;
+    height: 30px;
+    width:15px;
+    margin: 10px 10px;
+}
+
+.origine{
+    background-color: black;
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+}
+
+.enfant{
+    border-left: solid 5px black;
+    border-bottom: solid 5px black;
 }
 
 td{
@@ -26,12 +71,20 @@ td{
     width: fit-content;
     height: 25px;
     background-color: bisque;
+    text-align: center;
+    margin:10px;
 }
 
 .nom_arbre{
     padding: 5px 0px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.sauvegarder {
+    margin: auto;
+    text-align: center;
+    float: center;
 }
 
 /*************
