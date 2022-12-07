@@ -4,66 +4,48 @@
         <meta charset="UTF-8">
         <title>Arbres des armes</title>
         <link rel="stylesheet" href="arbres-armes.css">
+        <script src="app.js"></script>
     </head>
     <body>
-        <div id="main"></div>
-        <table>
+        <div id="content"></div>
+        <nav>
+            <a href="#tab_Grandeepee">Grande &Eacute;pée</a>
+            <a href="#tab_Katana">Katana</a>
+            <a href="#tab_EB">&Eacute;pée Bouclier</a>
+            <a href="#tab_Dagues">Doubles Lames</a>
+            <a href="#tab_Marteau">Marteau</a>
+            <a href="#tab_Corne">Corne de chasse</a>
+            <a href="#tab_Lance">Lance</a>
+            <a href="#tab_LanceCanon">Lancecanon</a>
+            <a href="#tab_Morpho">Morpho-hache</a>
+            <a href="#tab_Volto">Volto-hache</a>
+            <a href="#tab_Insecto">Insectoglaive</a>
+            <a href="#tab_FusabLeger">Fusarbalète Léger</a>
+            <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
+            <a href="#tab_Arc">Arc</a>
+        </nav>
+        <table id="tab_Grandeepee">
             <thead></thead>
             <tbody>
-                <tr class="titre"><td colspan="8"><h1>Grande &Eacute;pée</h1></td></tr>
-                <tr><td colspan="8" class="nom_arbre">Arbre en fer</td></tr>
-                <tr class="caracteristiques">
-                    <td>Rareté et arborescence</td>
-                    <td>Nom</td>
-                    <td>Dégâts</td>
-                    <td>Tranchant</td>
-                    <td>Attribut</td>
-                    <td>Affinité</td>
-                    <td>Fentes</td>
-                    <td>Bonus</td>
-                </tr>
-                <tr class="armes">
-                    <td class="rarete-nom">
-                        <div>
-                            <!-- <canvas class="enfant-0" width="300" height="30">
-                                navigateur incompatible avec les canvas
-                            </canvas> -->
-                            <img alt="ne marche pas" src="images/grandeepee.png" class="grandeepee">
-                        </div>
-                        <div>
-                            <button class="btn_leger amelioration">amélioration</button>
-                            <button class="btn_leger supprimer">supprimer</button>
-                        </div>
-                    </td>
-                    <td>&Eacute;pée de fer</td>
-                    <td>70</td>
-                    <td>tranchant</td>
-                    <td>---</td>
-                    <td>0%</td>
-                    <td>---</td>
-                    <td>---</td>
-                </tr>
-                <tr class="armes">
-                    <td class="rarete-nom">
-                        <div>
-                            <!-- <canvas class="enfant-1" width="300" height="30">
-                                navigateur incompatible avec les canvas
-                            </canvas> -->
-                            <img alt="ne marche pas" src="images/grandeepee.png" class="grandeepee">
-                        </div>
-                        <div>
-                            <button class="btn_leger amelioration">amélioration</button>
-                            <button class="btn_leger supprimer">supprimer</button>
-                        </div>
-                    </td>
-                    <td>&Eacute;pée de fer</td>
-                    <td>70</td>
-                    <td>tranchant</td>
-                    <td>---</td>
-                    <td>0%</td>
-                    <td>---</td>
-                    <td>---</td>
-                </tr>
+                <script>
+                    let tableau = document.getElementById("tab_Grandeepee");
+                    section_create(tableau, "pétrifié", "grandeepee");
+                    section_create(tableau, "en fer", "grandeepee");
+                    section_create(tableau, "en os", "grandeepee");
+                    section_create(tableau, "rouillé", "grandeepee");
+                    section_create(tableau, "usé", "grandeepee");
+                    section_create(tableau, "Deviljho", "grandeepee");
+                    section_create(tableau, "Magala", "grandeepee");
+                    
+                    ArrayAmelioration = document.getElementsByClassName("amelioration")
+
+                    for (let i = 0; i < ArrayAmelioration.length; i++) {
+                        ArrayAmelioration[i].onclick = function(){
+                            row_append(parentNodeNiv(this, 5), parentNodeNiv(this, 3).rowIndex + 1, 1, "grandeepee");
+                            
+                        };
+                    }
+                </script>
             </tbody>
         </table>
         <!--
@@ -79,11 +61,9 @@
         <div class="rare10">rare10</div>
         <div class="rareX">rareX</div>
         -->
-        <div>
-            <button class="sauvegarder btn_leger">Sauvegarder</button>
+        <div class="sauvegarder">
+            <button class="btn_leger">Sauvegarder</button>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-        <script src="app.js"></script>
     </body>
 </html>
 
