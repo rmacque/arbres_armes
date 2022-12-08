@@ -8,8 +8,8 @@ nav{
 }
 
 nav a{
-    /*
     display: inline-block;
+    /*
     margin: 10px;
     min-width: 150px;
     */
@@ -22,7 +22,7 @@ table{
 }
 
 .titre{
-    background-color: blue;
+    background-color: burlywood;
     color:white;
 }
 
@@ -32,23 +32,32 @@ table img{
 
 tr{
     border: 1px solid black;
-    
+}
+
+.impair{
+    background-color: lightgray;
 }
 
 .esthetique{
     height: 40px;
 }
 
+/*
+.descendant-&var{
+    float: left;
+    height: 30px;
+    width: (15*var)px;
+}
+*/
+
 span{
     float: left;
     height: 30px;
     width:15px;
-    margin: 10px 10px;
 }
 
 .origine{
     background-color: black;
-    width:15px;
     height:15px;
     border-radius: 50%;
 }
@@ -60,6 +69,7 @@ span{
 
 td{
     border: 1px solid black;
+    padding: 10px;
 }
 
 .grandeepee{
@@ -70,9 +80,17 @@ td{
     min-width: 80px;
     width: fit-content;
     height: 25px;
-    background-color: bisque;
     text-align: center;
     margin:10px;
+}
+
+.amelioration{
+    background-color: bisque;
+}
+
+.supprimer{
+    background-color: firebrick;
+    color: white;
 }
 
 .nom_arbre{
@@ -85,6 +103,10 @@ td{
     margin: auto;
     text-align: center;
     float: center;
+}
+
+table input{
+    width: 2em;
 }
 
 /*************
