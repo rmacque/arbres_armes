@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Arbres des armes</title>
-        <link rel="stylesheet" href="arbres-armes.css">
-        <script src="app.js"></script>
-    </head>
-    <body>
-        <div id="content"></div>
-        <nav>
-            <a href="#tab_Grandeepee">Grande &Eacute;pée</a>
-            <a href="#tab_Katana">Katana</a>
-            <a href="#tab_EB">&Eacute;pée Bouclier</a>
-            <a href="#tab_Dagues">Doubles Lames</a>
-            <a href="#tab_Marteau">Marteau</a>
-            <a href="#tab_Corne">Corne de chasse</a>
-            <a href="#tab_Lance">Lance</a>
-            <a href="#tab_LanceCanon">Lancecanon</a>
-            <a href="#tab_Morpho">Morpho-hache</a>
-            <a href="#tab_Volto">Volto-hache</a>
-            <a href="#tab_Insecto">Insectoglaive</a>
-            <a href="#tab_FusabLeger">Fusarbalète Léger</a>
-            <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
-            <a href="#tab_Arc">Arc</a>
-        </nav>
-        <table id="tab_Grandeepee">
-            <thead></thead>
-            <tbody>
-                <script>
-                    let tableau = document.getElementById("tab_Grandeepee");
-                    section_create(tableau, "pétrifié", "grandeepee");
-                    section_create(tableau, "en fer", "grandeepee");
-                    section_create(tableau, "en os", "grandeepee");
-                    section_create(tableau, "rouillé", "grandeepee");
-                    section_create(tableau, "usé", "grandeepee");
-                    section_create(tableau, "Deviljho", "grandeepee");
-                    section_create(tableau, "Magala", "grandeepee");
-                    
-                    ArrayAmelioration = document.getElementsByClassName("amelioration")
 
-                    for (let i = 0; i < ArrayAmelioration.length; i++) {
-                        ArrayAmelioration[i].onclick = function(){
-                            row_append(parentNodeNiv(this, 5), parentNodeNiv(this, 3).rowIndex + 1, 1, "grandeepee");
-                            
-                        };
-                    }
-                </script>
-            </tbody>
-        </table>
-        <!--
+<head>
+  <meta charset="UTF-8">
+  <title>Arbres des armes</title>
+  <link rel="stylesheet" href="arbres-armes.css">
+  <script src="scripts/jquery-3.6.2.js"></script>
+
+  <script src="scripts/app.js"></script>
+</head>
+
+<body>
+  <div id="content"></div>
+  <nav>
+    <a href="#tab_Grandeepee">Grande &Eacute;pée</a>
+    <a href="#tab_Katana">Katana</a>
+    <a href="#tab_EB">&Eacute;pée Bouclier</a>
+    <a href="#tab_Dagues">Doubles Lames</a>
+    <a href="#tab_Marteau">Marteau</a>
+    <a href="#tab_Corne">Corne de chasse</a>
+    <a href="#tab_Lance">Lance</a>
+    <a href="#tab_LanceCanon">Lancecanon</a>
+    <a href="#tab_Morpho">Morpho-hache</a>
+    <a href="#tab_Volto">Volto-hache</a>
+    <a href="#tab_Insecto">Insectoglaive</a>
+    <a href="#tab_FusabLeger">Fusarbalète Léger</a>
+    <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
+    <a href="#tab_Arc">Arc</a>
+  </nav>
+  <table id="tab_Grandeepee">
+    <thead></thead>
+    <tbody>
+      <script>
+        let tableau = $("#tab_Grandeepee");
+        section_create(tableau, "pétrifié", "grandeepee");
+        section_create(tableau, "en fer", "grandeepee");
+        section_create(tableau, "en os", "grandeepee");
+        section_create(tableau, "rouillé", "grandeepee");
+        section_create(tableau, "usé", "grandeepee");
+        section_create(tableau, "Deviljho", "grandeepee");
+        section_create(tableau, "Magala", "grandeepee");
+        //amelioration_on("grandeepee");
+      </script>
+    </tbody>
+  </table>
+  <!--
         <div class="rare1">rare1</div>
         <div class="rare2">rare2</div>
         <div class="rare3">rare3</div>
@@ -61,9 +57,9 @@
         <div class="rare10">rare10</div>
         <div class="rareX">rareX</div>
         -->
-        <div class="sauvegarder">
-            <button class="btn_leger">Sauvegarder</button>
-        </div>
-    </body>
-</html>
+  <div class="sauvegarder">
+    <button class="btn_leger" onclick="sauvegarder()">Sauvegarder</button>
+  </div>
+</body>
 
+</html>
