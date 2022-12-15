@@ -1,112 +1,115 @@
-body{
-    background-color: #f3f3f3;
-    padding: 0% 2%;
+body {
+  background-color: #f3f3f3;
+  padding: 0% 2%;
 }
 
-nav{
-    padding: 30px;
+nav {
+  padding: 30px;
 }
 
-nav a{
-    display: inline-block;
-    /*
+nav a {
+  display: inline-block;
+  /*
     margin: 10px;
     min-width: 150px;
     */
 }
 
-table{
-    border-collapse: collapse;
-    text-align: center;
-    width: 100%;
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
 }
 
-.titre{
-    background-color: burlywood;
-    color:white;
+.titre {
+  background-color: burlywood;
+  color: white;
 }
 
-table img{
-    float: right;
+table img {
+  float: right;
 }
 
-tr{
-    border: 1px solid black;
+tr {
+  border: 1px solid black;
 }
 
-.impair{
-    background-color: lightgray;
+.impair {
+  background-color: lightgray;
 }
 
-.esthetique{
-    height: 40px;
+.esthetique {
+  height: 40px;
 }
 
-/*
-.descendant-&var{
-    float: left;
-    height: 30px;
-    width: (15*var)px;
-}
-*/
-
-span{
-    float: left;
-    height: 30px;
-    width:15px;
+span {
+  float: left;
+  height: 30px;
+  width: 15px;
 }
 
-.origine{
-    background-color: black;
-    height:15px;
-    border-radius: 50%;
+.cousin {
+  background-color: blue;
+  border-left: solid 5px black;
+  margin-left: 5px;
 }
 
-.enfant{
-    border-left: solid 5px black;
-    border-bottom: solid 5px black;
+.origine {
+  background-color: black;
+  height: 15px;
+  border-radius: 50%;
 }
 
-td{
-    border: 1px solid black;
-    padding: 10px;
+.enfant {
+  border-left: solid 5px black;
+  border-bottom: solid 5px black;
+  margin-left: 5px;
 }
 
-.grandeepee{
-    width:30px;
+td {
+  border: 1px solid black;
+  padding: 10px;
 }
 
-.btn_leger{
-    min-width: 80px;
-    width: fit-content;
-    height: 25px;
-    text-align: center;
-    margin:10px;
+.grandeepee {
+  width: 30px;
 }
 
-.amelioration{
-    background-color: bisque;
+.btn_leger {
+  min-width: 80px;
+  width: fit-content;
+  height: 25px;
+  text-align: center;
+  margin: 10px;
 }
 
-.supprimer{
-    background-color: firebrick;
-    color: white;
+.amelioration {
+  background-color: bisque;
 }
 
-.nom_arbre{
-    padding: 5px 0px;
-    font-size: 20px;
-    font-weight: bold;
+.supprimer {
+  background-color: firebrick;
+  color: white;
+}
+
+.nom_arbre {
+  padding: 5px 0px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .sauvegarder {
-    margin: auto;
-    text-align: center;
-    float: center;
+  margin: auto;
+  text-align: center;
+  float: center;
 }
 
-table input{
-    width: 2em;
+.sauvegarder .btn_leger{
+  background-color: lightgreen;
+}
+
+table input {
+  width: 2em;
 }
 
 /*************
