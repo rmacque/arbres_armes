@@ -1,0 +1,152 @@
+body {
+  background-color: #f3f3f3;
+  padding: 0% 2%;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  display: inline-block;
+  /*
+    margin: 10px;
+    min-width: 150px;
+    */
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+
+.titre {
+  background-color: burlywood;
+  color: white;
+}
+
+table img {
+  float: right;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+.impair {
+  background-color: lightgray;
+}
+
+.esthetique {
+  height: 40px;
+}
+
+span {
+  float: left;
+  height: 30px;
+  width: 15px;
+}
+
+.cousin {
+  background-color: blue;
+  border-left: solid 5px black;
+  margin-left: 5px;
+}
+
+.origine {
+  background-color: black;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.enfant {
+  border-left: solid 5px black;
+  border-bottom: solid 5px black;
+  margin-left: 5px;
+}
+
+td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.grandeepee {
+  width: 30px;
+}
+
+.btn_leger {
+  min-width: 80px;
+  width: fit-content;
+  height: 25px;
+  text-align: center;
+  margin: 10px;
+}
+
+.amelioration {
+  background-color: bisque;
+}
+
+.supprimer {
+  background-color: firebrick;
+  color: white;
+}
+
+.nom_arbre {
+  padding: 5px 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sauvegarder {
+  margin: auto;
+  text-align: center;
+  float: center;
+}
+
+.sauvegarder .btn_leger{
+  background-color: lightgreen;
+}
+
+table input {
+  width: 2em;
+}
+
+/*************
+ Couleurs
+ *************
+
+.rare1{
+    background-color: white;
+}
+.rare2{
+    background-color: rgb(127, 0, 127);
+}
+.rare3{
+    background-color: #f2f700;
+}
+.rare4{
+    background-color: rgb(255, 0, 190);
+}
+.rare5{
+    background-color: rgb(127, 255, 127);
+}
+.rare6{
+    background-color: rgb(0, 0, 255);
+}
+.rare7{
+    background-color: rgb(255, 0, 0);
+}
+.rare8{
+    background-color: rgb(0, 125, 255);
+}
+.rare9{
+    background-color: rgb(255, 125, 0);
+}
+.rare10{
+    background-color: rgb(255, 0 , 122);
+}
+.rareX{
+    background-color: rgb(190, 0, 190);
+}
+/**************/
