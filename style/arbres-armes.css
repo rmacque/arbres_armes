@@ -42,16 +42,18 @@ tr {
   height: 40px;
 }
 
+/*
+.descendant-&var{
+    float: left;
+    height: 30px;
+    width: (15*var)px;
+}
+*/
+
 span {
   float: left;
   height: 30px;
   width: 15px;
-}
-
-.cousin {
-  background-color: blue;
-  border-left: solid 5px black;
-  margin-left: 5px;
 }
 
 .origine {
@@ -63,10 +65,10 @@ span {
 .enfant {
   border-left: solid 5px black;
   border-bottom: solid 5px black;
-  margin-left: 5px;
 }
 
-td {
+td,
+th {
   border: 1px solid black;
   padding: 10px;
 }
@@ -98,20 +100,41 @@ td {
   font-weight: bold;
 }
 
-.sauvegarder {
-  margin: auto;
-  text-align: center;
-  float: center;
+table input {
+  width: fit-content;
 }
 
-.sauvegarder .btn_leger{
+.sauvegarder{
   background-color: lightgreen;
 }
 
-table input {
-  width: 2em;
+.section-create{
+  background-color: bisque;
 }
 
+.descendant-1 {
+  background-color: violet;
+}
+
+.descendant-2 {
+  background-color: blue;
+}
+
+.descendant-3 {
+  background-color: lightskyblue;
+}
+
+footer{
+  margin: auto;
+  text-align: center;
+}
+
+.btn_lourd{
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px black;
+  margin: 5px;
+}
 /*************
  Couleurs
  *************
