@@ -31,7 +31,8 @@ function parentNodeNiv(node, niveau) {
   return res;
 }
 
-function section_create(table, titre, img) {
+function section_create(titre, img) {
+  let tableau = $("table");
   //1ere et 2eme ligne
   let chaine = "<tr class=\"titre\"><td colspan=\"8\" class=\"nom_arbre\">Arbre "+titre+"</td></tr>";
   chaine += "<tr class=\"caracteristiques\"><td>Rareté et arborescence</td><td>Nom</td><td>Dégâts</td><td>Tranchant</td><td>Attribut</td><td>Affinité</td><td>Fentes</td><td>Bonus</td></tr>";
@@ -49,7 +50,7 @@ function section_create(table, titre, img) {
   chaine += "<td>---</td></tr>";
 
   chaine = $(chaine);
-  table.append(chaine);
+  tableau.append(chaine);
   chaine[2].querySelectorAll(".amelioration")[0].onclick = function(){
     row_append(this, 0, img);
   };
@@ -92,11 +93,41 @@ function row_append(element, descendant, img) {
 
   //Activation des boutons
   row.querySelector(".supprimer").onclick = function () {
+    let e = parentNodeNiv(this, 3).previousSibling.querySelector(".supprimer");
+    if(e){
+      e.disabled = false;
+    }
     parentNodeNiv(this, 3).remove();
   };
   row.querySelector(".amelioration").onclick = function () {
+    parentNodeNiv(this, 3).querySelector(".supprimer").disabled = true;
+    //parentNodeNiv(this, 3).previousSibling.querySelector(".supprimer").disabled = true
     row_append(this, descendant + 1, img);
   };
+}
+
+function sauvegarder(){
+  let tableau = $("table")[0];
+  let tableau_armes = tableau.querySelectorAll(".armes");
+  //console.log(tableau_armes);
+  let tableau_data = [];
+  tableau_armes.forEach(arme => {
+    console.log(arme.childNodes[1].innerHTML);
+    tableau_data.push(arme.childNodes[1].innerHTML);
+  });
+  console.log(tableau_data);
+  $.ajax({
+    method: "GET",
+    dataType: "json",
+    url: "scripts/grandeepee.php",
+    //data: {"tableau": tableau_data}
+  }).done(function (obj) {
+    console.log(obj);
+    //console.log(tableau_data);
+  }).fail(function (e) {
+    console.log(e);
+    $("body").append("<div class=\"ajax error\">Erreur Ajax dans : sauvegarder<div>");
+  });
 }
 
 /**
