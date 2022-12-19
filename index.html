@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Arbres des armes</title>
-  <link rel="stylesheet" href="arbres-armes.css">
+  <link rel="stylesheet" href="style/arbres-armes.css">
   <script src="scripts/jquery-3.6.2.js"></script>
-
   <script src="scripts/app.js"></script>
 </head>
 
@@ -28,38 +27,34 @@
     <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
     <a href="#tab_Arc">Arc</a>
   </nav>
-  <table id="tab_Grandeepee">
+  <table>
     <thead></thead>
     <tbody>
       <script>
-        let tableau = $("#tab_Grandeepee");
-        section_create(tableau, "pétrifié", "grandeepee");
-        section_create(tableau, "en fer", "grandeepee");
-        section_create(tableau, "en os", "grandeepee");
-        section_create(tableau, "rouillé", "grandeepee");
-        section_create(tableau, "usé", "grandeepee");
-        section_create(tableau, "Deviljho", "grandeepee");
-        section_create(tableau, "Magala", "grandeepee");
-        //amelioration_on("grandeepee");
+        section_create('pétrifié', 'grandeepee');
+        //section_create('en fer', 'grandeepee');
+        //section_create('en os', 'grandeepee');
       </script>
     </tbody>
   </table>
   <!--
-        <div class="rare1">rare1</div>
-        <div class="rare2">rare2</div>
-        <div class="rare3">rare3</div>
-        <div class="rare4">rare4</div>
-        <div class="rare5">rare5</div>
-        <div class="rare6">rare6</div>
-        <div class="rare7">rare7</div>
-        <div class="rare8">rare8</div>
-        <div class="rare9">rare9</div>
-        <div class="rare10">rare10</div>
-        <div class="rareX">rareX</div>
-        -->
-  <div class="sauvegarder">
-    <button class="btn_leger" onclick="sauvegarder()">Sauvegarder</button>
-  </div>
+  <div class="rare1">rare1</div>
+  <div class="rare2">rare2</div>
+  <div class="rare3">rare3</div>
+  <div class="rare4">rare4</div>
+  <div class="rare5">rare5</div>
+  <div class="rare6">rare6</div>
+  <div class="rare7">rare7</div>
+  <div class="rare8">rare8</div>
+  <div class="rare9">rare9</div>
+  <div class="rare10">rare10</div>
+  <div class="rareX">rareX</div>
+  -->
+
+  <footer>
+    <button class="section-create btn_lourd" onclick="section_create('nouveau', 'grandeepee')">Créer une
+      section</button><br><button class="sauvegarder btn_lourd" onclick="sauvegarder()">Sauvegarder</button>
+  </footer>
 </body>
 
 </html>
