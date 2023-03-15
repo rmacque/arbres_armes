@@ -1,5 +1,7 @@
 "use strict";
 
+const CHEMIN_IMAGES = "../images/";
+
 function draw_ligne_verticale_canva(element) {
   let ctx = element.getContext('2d');
   ctx.fillRect(0, 0, 5, 30);
@@ -30,20 +32,24 @@ function parentNodeNiv(node, niveau) {
 
   return res;
 }
-
+/**
+ * 
+ * @param {nom de la section} titre 
+ * @param {le chemin de la miniature de l'arme} img 
+ */
 function section_create(titre, img) {
   let tableau = $("table");
   //1ere et 2eme ligne
   let chaine = "<tr class=\"titre\"><td colspan=\"8\" class=\"nom_arbre\">Arbre "+titre+"</td></tr>";
   chaine += "<tr class=\"caracteristiques\"><td>Rareté et arborescence</td><td>Nom</td><td>Dégâts</td><td>Tranchant</td><td>Attribut</td><td>Affinité</td><td>Fentes</td><td>Bonus</td></tr>";
   //3eme ligne, esthetique
-  chaine += "<tr class=\"armes\"><td><div class=\"esthetique\"><span class=\"origine\"></span><img alt=\"ne marche pas\" src=\"images/" + img + ".png\" class=\"grandeepee\"></div>";
+  chaine += "<tr class=\"armes\"><td><div class=\"esthetique\"><span class=\"origine\"></span><img alt=\"ne marche pas\" src=\"" + CHEMIN_IMAGES + img + ".png\" class=\"grandeepee\"></div>";
 
   //3eme ligne, boutons et reste
   chaine += "<div><button class=\"btn_leger amelioration\">amélioration</button></div></td>";
   chaine += "<td>&Eacute;pée " + titre + "</td>";
   chaine += "<td>Nan</td>";
-  chaine += "<td>Lorem</td>";
+  chaine += "<td>une images du tranchant des armes ?</td>";
   chaine += "<td>---</td>";
   chaine += "<td>0%</td>";
   chaine += "<td>---</td>";
@@ -51,6 +57,8 @@ function section_create(titre, img) {
 
   chaine = $(chaine);
   tableau.append(chaine);
+
+  //Activation du bouton amelioration
   chaine[2].querySelectorAll(".amelioration")[0].onclick = function(){
     row_append(this, 0, img);
   };
@@ -70,7 +78,7 @@ function row_append(element, descendant, img) {
     row += "<span class=\"descendant\"></span>";
   }
   
-  row += "<span class=\"enfant\"></span><img alt=\"ne marche pas\" src=\"images/" + img + ".png\" class=\"grandeepee\"></div>";
+  row += "<span class=\"enfant\"></span><img alt=\"ne marche pas\" src=\""+ CHEMIN_IMAGES + img + ".png\" class=\"grandeepee\"></div>";
   row += "<div><button class=\"btn_leger amelioration\">amélioration</button><button class=\"btn_leger supprimer\" onclick=row_delete()>supprimer</button></div></td>";
   row += "<td><input placeholder=\"&Eacute;Name\"/></td>";
   row += "<td><input placeholder=\"100\"/></td>";
@@ -80,25 +88,24 @@ function row_append(element, descendant, img) {
   row += "<td><input placeholder=\"OOO\"/></td>";
   row += "<td><input placeholder=\"15 def\"/></td>";
   row += "</tr>";
-  /*
-  if(!(row.rowIndex % 2)){
-    row.classList += "impair" ;
-  }
-  */
+  
   //cast de string en node
   row = $(row)[0];
 
   //ajout  
   ligne_appelante.after(row);
 
-  //Activation des boutons
+  //Desactivation du bouton supprimer
   row.querySelector(".supprimer").onclick = function () {
     let e = parentNodeNiv(this, 3).previousSibling.querySelector(".supprimer");
     if(e){
       e.disabled = false;
+      e.addClass("desactive") //Pour le CSS
     }
     parentNodeNiv(this, 3).remove();
   };
+  
+  //Activation des boutons
   row.querySelector(".amelioration").onclick = function () {
     parentNodeNiv(this, 3).querySelector(".supprimer").disabled = true;
     //parentNodeNiv(this, 3).previousSibling.querySelector(".supprimer").disabled = true
