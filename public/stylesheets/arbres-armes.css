@@ -13,13 +13,62 @@
   margin: 10px;
 }
 
+.sauvegarder {
+  background-color: lightgreen;
+}
+
+.amelioration {
+  background-color: bisque;
+}
+
+.esthetique {
+  height: max-content;
+}
+
+.generation {
+  float: left;
+  height: 30px;
+}
+
+.origine {
+  float: left;
+  background-color: black;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+}
+
+.enfant {
+  float: left;
+  height: 70px;
+  width: 15px;
+  border-left: solid 5px black;
+  border-bottom: solid 5px black;
+}
+
+.generation-1 {
+  background-color: violet;
+}
+
+.generation-2 {
+  background-color: blue;
+}
+
+.generation-3 {
+  background-color: lightskyblue;
+}
+
 body {
   background-color: #f3f3f3;
   padding: 0% 2%;
 }
 
-.ajax.error {
+.error {
   color: red;
+}
+
+.success {
+  color: green;
 }
 
 nav {
@@ -38,21 +87,20 @@ table {
   text-align: center;
   width: 100%;
 }
-table img {
-  float: right;
-}
 table tr {
   border: 1px solid black;
 }
-table tr:nth-child(odd) {
+table tr:nth-child(even) {
   background-color: #d3d3d3;
 }
 table td, table th {
   border: 1px solid black;
   padding: 10px;
+  width: fit-content;
 }
 table input {
   width: fit-content;
+  max-width: 5em;
 }
 
 .titre {
@@ -60,45 +108,8 @@ table input {
   color: white;
 }
 
-.esthetique {
-  height: 40px;
-}
-
-/*
-.descendant-&var{
-    float: left;
-    height: 30px;
-    width: (15*var)px;
-}
-*/
-span {
-  float: left;
-  height: 30px;
-  width: 15px;
-}
-
-.origine {
-  background-color: black;
-  height: 15px;
-  border-radius: 50%;
-}
-
-.enfant {
-  border-left: solid 5px black;
-  border-bottom: solid 5px black;
-}
-
 .grandeepee {
   width: 30px;
-}
-
-.amelioration {
-  background-color: bisque;
-}
-
-.supprimer {
-  background-color: firebrick;
-  color: white;
 }
 
 .nom_arbre {
@@ -107,24 +118,8 @@ span {
   font-weight: bold;
 }
 
-.sauvegarder {
-  background-color: lightgreen;
-}
-
 .section-create {
   background-color: bisque;
-}
-
-.descendant-1 {
-  background-color: violet;
-}
-
-.descendant-2 {
-  background-color: blue;
-}
-
-.descendant-3 {
-  background-color: lightskyblue;
 }
 
 footer {

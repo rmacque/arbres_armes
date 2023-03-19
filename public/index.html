@@ -6,11 +6,24 @@
   <title>Arbres des armes</title>
   <link rel="stylesheet" href="stylesheets/arbres-armes.css">
   <script src="../scripts/jquery-3.6.2.js"></script>
-  <script src="../scripts/app.js"></script>
+  <script src="../scripts/app.js">function charger(){
+    console.log("aaaa");
+    $("#content").html("aaaaaa");
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: "../scripts/load.php",
+    }).done(function (obj) {
+      console.log(obj);
+      $("#content").append(obj);
+    }).fail(function (e) {
+      console.log(e);
+      $(".ajax").removeClass("success").addClass("error").html("Erreur dans charger");
+    });
+  }</script>
 </head>
 
 <body>
-  <div id="content"></div>
   <nav>
     <a href="#tab_Grandeepee">Grande &Eacute;pée</a>
     <a href="#tab_Katana">Katana</a>
@@ -27,16 +40,15 @@
     <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
     <a href="#tab_Arc">Arc</a>
   </nav>
-  <table>
-    <thead></thead>
-    <tbody>
-      <script>
-        section_create('pétrifié', 'grandeepee');
-        //section_create('en fer', 'grandeepee');
-        //section_create('en os', 'grandeepee');
-      </script>
-    </tbody>
-  </table>
+  <div id="content" onload="charger()">
+    <script>
+      /*
+      section_create('pétrifié', 'grandeepee');
+      section_create('en fer', 'grandeepee');
+      section_create('en os', 'grandeepee');
+      */
+    </script>
+  </div>
   <!--
   <div class="rare1">rare1</div>
   <div class="rare2">rare2</div>
@@ -53,11 +65,9 @@
 
   <footer>
     <div>
-      <button class="section-create btn_lourd" onclick="section_create('nouveau', 'grandeepee')">Créer une section</button>
-    </div>
-    <div>
       <button class="sauvegarder btn_lourd" onclick="sauvegarder()">Sauvegarder</button>
     </div>
+    <div class="ajax error"></div>
   </footer>
 </body>
 
