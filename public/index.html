@@ -6,21 +6,7 @@
   <title>Arbres des armes</title>
   <link rel="stylesheet" href="stylesheets/arbres-armes.css">
   <script src="../scripts/jquery-3.6.2.js"></script>
-  <script src="../scripts/app.js">function charger(){
-    console.log("aaaa");
-    $("#content").html("aaaaaa");
-    $.ajax({
-      method: "GET",
-      dataType: "json",
-      url: "../scripts/load.php",
-    }).done(function (obj) {
-      console.log(obj);
-      $("#content").append(obj);
-    }).fail(function (e) {
-      console.log(e);
-      $(".ajax").removeClass("success").addClass("error").html("Erreur dans charger");
-    });
-  }</script>
+  <script src="../scripts/app.js"></script>
 </head>
 
 <body>
@@ -40,8 +26,9 @@
     <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
     <a href="#tab_Arc">Arc</a>
   </nav>
-  <div id="content" onload="charger()">
+  <div id="content">
     <script>
+      charger("grandeepee");
       /*
       section_create('pétrifié', 'grandeepee');
       section_create('en fer', 'grandeepee');

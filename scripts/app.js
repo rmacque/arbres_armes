@@ -143,15 +143,51 @@ function sauvegarder(){
   });
 }
 
-function charger(){
-  console.log("aaaa");
-  $("#content").html("aaaaaa");
+function charger(img){
   $.ajax({
     method: "GET",
     dataType: "json",
     url: "../scripts/load.php",
   }).done(function (obj) {
-    console.log(obj);
+    let section;
+    obj.forEach( e => {
+      section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">Arbre "+ e["nom_section"] +"</th></tr>";
+      //2eme ligne
+      section += "<tr class=\"caracteristiques\"><th>Arborescence</th><th>Rareté</th><th>Nom</th><th>Dégâts</th><th>Tranchant</th><th>Attribut</th><th>Affinité</th><th>Fentes</th><th>Bonus</th></tr></thead><tbody>";
+      
+      //3eme ligne
+      e[0].forEach(arme => {
+        section += "<tr class=\"armes\"><td><div class=\"esthetique\">";
+        if(arme["generation"] == 0){
+          section += "<span class=\"origine\"></span>";
+        }else{
+          section += "<span class=\"enfant\"></span>";
+        }
+        section +="</div></td>";
+        section += "<td><div><img alt=\"ne marche pas\" src=\"" + CHEMIN_IMAGES + img + ".png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button></div></td>";
+
+        section += "<td><input class=\"nom\" placeholder=\"&Eacute;pée " + arme["nom_section"] + "e\" value=\""+ arme["nom"] +"\"/></td>";
+        section += "<td><input class=\"degats\" placeholder=\"100\" value=\""+ arme["degats"] +"\"/></td>";
+        section += "<td>tranchant</td>";
+        section += "<td><input class=\"attribut\" placeholder=\"10\" value=\""+ arme["attribut"] +"\"/></td>";
+        section += "<td><input class=\"affinite\" placeholder=\"0\" value=\""+ arme["affinite"] +"\"> %</input></td>";
+        section += "<td><input class=\"fentes\" placeholder=\"OOO\" value=\""+ arme["fentes"] +"\"/></td>";
+        section += "<td><input class=\"bonus\" placeholder=\"ex:15 def\" value=\""+ arme["bonus"] +"\"/></td>";
+        section += "</tr>";
+      })
+      
+      section += "</tbody></table>";
+      
+      //cast du string en node
+      section = stringToNode(section);
+      $("#content").append(section);
+
+      //Activation du bouton amelioration
+      section.querySelector(".amelioration").onclick = function() {
+        row_append(parentNodeNiv(this, 3), 0, img);
+      };
+    })
+    
     $("#content").append(obj);
   }).fail(function (e) {
     console.log(e);
