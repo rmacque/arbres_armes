@@ -1,4 +1,5 @@
 <?php
-  $json = file_get_contents("donnees/grandeepee.json");
+  $arme = htmlspecialchars($_GET["arme"]);
+  $json = file_get_contents("donnees/$arme.json");
   echo $json;
 ?>

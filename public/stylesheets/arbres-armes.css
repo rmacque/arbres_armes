@@ -1,66 +1,6 @@
-.btn_lourd {
-  padding: 10px;
-  border-radius: 10px;
-  border: solid 1px black;
-  margin: 5px;
-}
-
-.btn_leger {
-  min-width: 80px;
-  width: fit-content;
-  height: 25px;
-  text-align: center;
-  margin: 10px;
-}
-
-.sauvegarder {
-  background-color: lightgreen;
-}
-
-.amelioration {
-  background-color: bisque;
-}
-
-.esthetique {
-  height: max-content;
-}
-
-.generation {
-  float: left;
-  height: 30px;
-}
-
-.origine {
-  float: left;
-  background-color: black;
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-}
-
-.enfant {
-  float: left;
-  height: 70px;
-  width: 15px;
-  border-left: solid 5px black;
-  border-bottom: solid 5px black;
-}
-
-.generation-1 {
-  background-color: violet;
-}
-
-.generation-2 {
-  background-color: blue;
-}
-
-.generation-3 {
-  background-color: lightskyblue;
-}
-
 body {
   background-color: #f3f3f3;
-  padding: 0% 2%;
+  padding: 0% 5%;
 }
 
 .error {
@@ -98,9 +38,22 @@ table td, table th {
   padding: 10px;
   width: fit-content;
 }
-table input {
-  width: fit-content;
-  max-width: 5em;
+
+input[class=nom] {
+  width: 15em;
+  text-align: center;
+}
+input[class=degats], input[class=attribut], input[class=affinite] {
+  width: 1.6em;
+  text-align: right;
+}
+input[class=fentes] {
+  width: 2.1em;
+  text-align: center;
+}
+input[class=bonus] {
+  width: 5em;
+  text-align: center;
 }
 
 .titre {
@@ -125,6 +78,10 @@ table input {
 footer {
   margin: auto;
   text-align: center;
+}
+
+select option[value=dr] {
+  background: url("../images/attributs/elements/dragon_S.webp");
 }
 
 /*************
@@ -166,5 +123,65 @@ footer {
 }
 /**************/
 /*# sourceMappingURL=arbres-armes.css.map */
+.btn_lourd {
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px black;
+  margin: 5px;
+}
+
+.btn_leger {
+  min-width: 80px;
+  width: fit-content;
+  height: 25px;
+  text-align: center;
+  margin: 10px;
+}
+
+.sauvegarder {
+  background-color: lightgreen;
+}
+
+.amelioration {
+  background-color: bisque;
+}
+
+.esthetique {
+  height: max-content;
+  width: 15em;
+}
+
+.generation {
+  float: left;
+  height: 30px;
+}
+
+.origine {
+  float: left;
+  background-color: black;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+}
+
+.enfant {
+  float: left;
+  height: 70px;
+  width: 15px;
+  border-left: solid 5px black;
+  border-bottom: solid 5px black;
+}
+
+.generation-1 {
+  background-color: violet;
+}
+
+.generation-2 {
+  background-color: blue;
+}
+
+.generation-3 {
+  background-color: lightskyblue;
+}
 
 /*# sourceMappingURL=arbres-armes.css.map */

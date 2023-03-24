@@ -5,12 +5,14 @@
   foreach($tab as $section){
     foreach($section[1] as $arme){
       $armes_section[] = [
-        "nom" => $arme[0], 
-        "degats" => $arme[1] , 
-        "attribut" => $arme[2], 
-        "affinite" => $arme[3], 
-        "fentes" => $arme[4], 
-        "bonus" => htmlspecialchars($arme[5])
+        "generation" => $arme[0],
+        "nom" => $arme[1], 
+        "degats" => $arme[2] , 
+        "attribut" => $arme[3], 
+        "type_attribut" => $arme[4],
+        "affinite" => $arme[5], 
+        "fentes" => $arme[6], 
+        "bonus" => $arme[7]
       ];
     }
     $data[] = ["nom_section" => $section[0], $armes_section];
