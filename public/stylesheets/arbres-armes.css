@@ -143,14 +143,14 @@ select {
 
 .amelioration {
   background-color: bisque;
+  float: right;
 }
 
-.arborescence {
+.col_arborescence {
   text-align: justify;
 }
 
 .esthetique {
-  height: max-content;
   width: 15em;
 }
 
