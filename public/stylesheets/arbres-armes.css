@@ -39,6 +39,11 @@ table td, table th {
   width: fit-content;
 }
 
+.col_attribut img {
+  width: 20px;
+  height: 20px;
+}
+
 input[class=nom] {
   width: 20em;
   text-align: center;
@@ -61,10 +66,6 @@ input[class=bonus] {
   color: white;
 }
 
-.icone {
-  width: 30px;
-}
-
 .nom_arbre {
   padding: 5px 0px;
   font-size: 20px;
@@ -78,10 +79,6 @@ input[class=bonus] {
 footer {
   margin: auto;
   text-align: center;
-}
-
-select {
-  float: right;
 }
 
 /*************
@@ -146,12 +143,12 @@ select {
   float: right;
 }
 
-.col_arborescence {
+td.col_arborescence {
   text-align: justify;
 }
 
-.esthetique {
-  width: 15em;
+.arbre {
+  width: 20em;
 }
 
 .generation {
@@ -169,18 +166,27 @@ select {
 
 .branche {
   float: left;
-  height: 20px;
-  width: 15px;
-  margin: 0px 5px 0px 15px;
+  height: 25px;
+  width: 10px;
+  border-left: black solid 5px;
+  margin: 0px 15px 0px 5px;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .feuille {
   float: left;
-  height: 20px;
-  width: 15px;
+  height: 12px;
+  width: 12px;
   border-left: solid 5px black;
   border-bottom: solid 5px black;
-  margin: 0px 5px 0px 15px;
+  margin: 0px 5px 0px 5px;
+}
+
+.icone {
+  width: 20px;
 }
 
 .generation-1 {

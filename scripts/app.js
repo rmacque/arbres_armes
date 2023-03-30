@@ -38,7 +38,7 @@ function parentNodeNiv(node, niveau) {
 }
 
 function stringToNode(string){
-  return $(string)[0];
+  return $(string).get(0);
 }
 
 /**
@@ -49,29 +49,48 @@ function row_build(arme){
   let row = "<tr class=\"armes\">";
 
   //Arborescence
-  row += "<td class=\"col_arborescence\"><div class=\"esthetique\"><span hidden class=\"generation\">"+ arme["generation"] +"</span>";
-  if(arme["generation"] == 0){
-    row += "";
-  } else {
-    for(let i = 1; i < arme["generation"]; i++){
-      row += "<span class=\"branche\"></span>"
-    }
+  row += "<td class=\"col_arborescence\"><div class=\"arbre\"><span hidden class=\"generation\">"+ arme["generation"] +"</span>";
+
+  //On contruit l'arbre de l'enfant potentiel
+  let new_arbre = []
+
+  //Construction de l'arbre
+  arme["arbre"].forEach(branche => {
+    row += "<span class=\"branche";
+    row += branche ? "" : " invisible";
+    row += "\"></span>";
+
+    //recopie de l'arborescence du parent
+    new_arbre.push(branche)
+  });
+  
+  if(arme["generation"] > 0){
     row += "<span class=\"feuille\"></span>";
+
+    //Par défaut, l'enfant n'a pas de frere
+    new_arbre.push(false);
   }
+
   row +="</div><img class=\"icone\" alt=\"icône introuvable\" src=\"" + CHEMIN_IMAGES_ARMES + arme["image"] + ".png\"><button class=\"btn_leger amelioration\">amélioration</button></td>";
 
+  //Specificite, nom, degats et tranchant
   row += "<td class=\"col_specificite\"></td>";
   row += "<td class=\"col_nom\"><input class=\"nom\" placeholder=\"Grande &Eacute;pée\" value=\""+ arme["nom"] +"\"/></td>";
   row += "<td class=\"col_degats\"><input class=\"degats\" placeholder=\"100\" value=\""+ arme["degats"] +"\"/></td>";
   row += "<td class=\"col_tranchant\">tranchant</td>";
 
   //Attribut
-  row += "<td class=\"col_attribut\"><input class=\"attribut\" placeholder=\"-\" value=\""+ arme["attribut"] +"\"/><img src=\"" + CHEMIN_ICONES + arme["type_attribut"] +".webp\"><select class=\"type_attribut\">";
+  row += "<td class=\"col_attribut\">";
+
+  row += "<input class=\"attribut\" value=\""+ arme["attribut"] +"\"";
+  row += (arme["type_attribut"] == ATTRIBUTS[0]) ? " disabled" : "";
+  row += " />"
+
+  row += "<img src=\"" + CHEMIN_ICONES + arme["type_attribut"] +".webp\"><select class=\"type_attribut\">";
   ATTRIBUTS.forEach(attribut =>{
     row += "<option value=\""+ attribut + "\"";
     row += (attribut == arme["type_attribut"]) ? "selected" : "";
     row += ">"+ attribut +"</option>";
-    // 
   });
   row += "</select></td>";
 
@@ -86,18 +105,24 @@ function row_build(arme){
   //lien entre les selects et l'image de l'attribut choisit
   row.querySelector(".type_attribut").onchange = function(){
     this.previousSibling.src = CHEMIN_ICONES + this.value +".webp";
+    if(this.value == ATTRIBUTS[0]){
+      this.previousSibling.previousSibling.disabled = true;
+      this.previousSibling.previousSibling.value = "";
+    } else {
+      this.previousSibling.previousSibling.disabled = false;
+    }
   };
-  
+
   //Activation des boutons amelioration
   row.querySelector(".amelioration").onclick = function() {
     row_append(row, {
       "generation": Number(arme["generation"]) + 1,
+      "arbre": new_arbre,
       "image": "grandeepee",
-      "nom_section": arme["nom_section"],
       "nom": "",
       "degats": "", 
       "attribut": "", 
-      "type_attribut": "", 
+      "type_attribut": ATTRIBUTS[0], 
       "affinite": "0", 
       "fentes": "---", 
       "bonus": ""
@@ -111,6 +136,18 @@ function row_build(arme){
  * @param {les donnees de l'arme} arme 
  */
 function row_append(ligne_appelante, arme) {
+
+  if(ligne_appelante.nextSibling != null){
+
+    let tmp = Number(ligne_appelante.querySelector(".generation").innerText);
+
+    //On verifie si l'enfant a déja un frere, si c'est le cas, on change son arbre    
+    if(Number(ligne_appelante.querySelector(".generation").innerText) 
+    == Number(ligne_appelante.nextSibling.querySelector(".generation").innerText)){
+      arme["arbre"][tmp - 1] = true;
+    }
+  }
+
   let new_row = row_build(arme);
   ligne_appelante.after(new_row);
 }
@@ -121,9 +158,16 @@ function sauvegarder(img){
   $("table").each(function(i){
     $(this)[0].querySelectorAll(".armes").forEach(arme => {
       //Recuperation des données du tableau
+      let arbre = [];
+
+      arme.querySelectorAll(".branche").forEach(e =>{
+          arbre.push(!$(e).hasClass("invisible"))
+      });
+
       data_armes.push({
         //arme.querySelector(".icone").src,
-        "generation" : arme.querySelector(".generation").innerText,
+        "generation" : Number(arme.querySelector(".generation").innerText),
+        "arbre": arbre,
         "image" : img,
         "nom" : arme.querySelector(".nom").value,
         "degats" : arme.querySelector(".degats").value,
@@ -140,7 +184,7 @@ function sauvegarder(img){
   });
   
   //console.log(data);
-
+  
   $.ajax({
     method: "GET",
     dataType: "json",

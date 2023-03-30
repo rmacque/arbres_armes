@@ -1,6 +1,11 @@
 <?php
   $tab = $_GET["tableaux"];
-  //echo $tab["a"], $tab["b"], $tab["c"];
+  
+  $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
+  file_put_contents("donnees/grandeepee.json", $jsonstring);
+  
+  echo true;
+  
   /*
   $data = [];
   $armes_section = [];
@@ -24,7 +29,3 @@
   
   $jsonstring = json_encode($data, JSON_PRETTY_PRINT);
   */
-  $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
-  file_put_contents("donnees/grandeepee.json", $jsonstring);
-  
-  echo true;
