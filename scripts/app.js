@@ -55,15 +55,24 @@ function row_build(arme){
   let new_arbre = []
 
   //Construction de l'arbre
-  arme["arbre"].forEach(branche => {
-    row += "<span class=\"branche";
-    row += branche ? "" : " invisible";
-    row += "\"></span>";
+  //console.log(arme["arbre"])
+  if(typeof arme["arbre"] !== 'undefined'){
+    arme["arbre"].forEach(branche => {
+      row += "<span class=\"branche";
 
-    //recopie de l'arborescence du parent
-    new_arbre.push(branche)
-  });
-  
+      //La conversion en json est foireuse, donc on fait double condition
+      if(branche == "false" || !branche){
+        row += " invisible";
+      }
+
+      //row += branche ? "" : " invisible";
+      row += "\"></span>"
+      
+      //recopie de l'arborescence du parent
+      new_arbre.push(branche)
+    });
+  }
+
   if(arme["generation"] > 0){
     row += "<span class=\"feuille\"></span>";
 
@@ -155,8 +164,8 @@ function row_append(ligne_appelante, arme) {
 function sauvegarder(img){
   let data = [];
   let data_armes = [];
-  $("table").each(function(i){
-    $(this)[0].querySelectorAll(".armes").forEach(arme => {
+  $("table").each(function(index){
+    this.querySelectorAll(".armes").forEach(arme => {
       //Recuperation des données du tableau
       let arbre = [];
 
@@ -165,7 +174,6 @@ function sauvegarder(img){
       });
 
       data_armes.push({
-        //arme.querySelector(".icone").src,
         "generation" : Number(arme.querySelector(".generation").innerText),
         "arbre": arbre,
         "image" : img,
@@ -179,18 +187,18 @@ function sauvegarder(img){
       });
     });
     //data_armes contient les données de toutes les armes d'une section desormais
-    data.push({"nom_section" : $(this)[0].querySelector(".nom_arbre").innerText, "armes" : data_armes});
+    data.push({"nom_section" : this.querySelector(".nom_arbre").innerText, "armes" : data_armes});
     data_armes = [];
   });
   
-  //console.log(data);
+  console.log(data);
   
   $.ajax({
     method: "GET",
     dataType: "json",
     url: "../scripts/grandeepee.php",
-    data: { "tableaux": data}
-  }).done(function (obj) {
+    data: {"tableaux": data}
+  }).done(function () {
     $(".ajax").removeClass("error").addClass("success").html("Sauvegarde réussie");
   }).fail(function (e) {
     console.log(e);

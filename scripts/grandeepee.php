@@ -1,5 +1,6 @@
 <?php
   $tab = $_GET["tableaux"];
+  //var_dump($tab);
   
   $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
   file_put_contents("donnees/grandeepee.json", $jsonstring);
@@ -11,9 +12,14 @@
   $armes_section = [];
   foreach($tab as $section){
     foreach($section["armes"] as $arme){
+      $tmp = [];
+      if(isset($arme["arbre"])){
+        $tmp = $arme["arbre"];
+      }
       $armes_section[] = [
-        "image" => $arme["image"],
         "generation" => $arme["generation"],
+        "arbre" => $tmp,
+        "image" => $arme["image"],
         "nom" => $arme["nom"], 
         "degats" => $arme["degats"] , 
         "attribut" => $arme["attribut"], 
@@ -28,4 +34,7 @@
   }
   
   $jsonstring = json_encode($data, JSON_PRETTY_PRINT);
+  file_put_contents("donnees/grandeepee2.json", $jsonstring);
+  
+  echo true;
   */
