@@ -67,7 +67,7 @@ function row_build(arme){
 
       //row += branche ? "" : " invisible";
       row += "\"></span>"
-      
+
       //recopie de l'arborescence du parent
       new_arbre.push(branche)
     });
@@ -127,7 +127,7 @@ function row_build(arme){
     row_append(row, {
       "generation": Number(arme["generation"]) + 1,
       "arbre": new_arbre,
-      "image": "grandeepee",
+      "image": arme["image"],
       "nom": "",
       "degats": "", 
       "attribut": "", 
@@ -161,11 +161,11 @@ function row_append(ligne_appelante, arme) {
   ligne_appelante.after(new_row);
 }
 
-function sauvegarder(img){
+function sauvegarder(weapon){
   let data = [];
   let data_armes = [];
-  $("table").each(function(index){
-    this.querySelectorAll(".armes").forEach(arme => {
+  $("table").each(function(index, item){
+    item.querySelectorAll(".armes").forEach(arme => {
       //Recuperation des données du tableau
       let arbre = [];
 
@@ -176,7 +176,7 @@ function sauvegarder(img){
       data_armes.push({
         "generation" : Number(arme.querySelector(".generation").innerText),
         "arbre": arbre,
-        "image" : img,
+        "image" : weapon,
         "nom" : arme.querySelector(".nom").value,
         "degats" : arme.querySelector(".degats").value,
         "attribut" : arme.querySelector(".attribut").value,
@@ -187,17 +187,17 @@ function sauvegarder(img){
       });
     });
     //data_armes contient les données de toutes les armes d'une section desormais
-    data.push({"nom_section" : this.querySelector(".nom_arbre").innerText, "armes" : data_armes});
+    data.push({"nom_section" : item.querySelector(".nom_arbre").innerText, "armes" : data_armes});
     data_armes = [];
   });
   
-  console.log(data);
+  //console.log(data, weapon);
   
   $.ajax({
     method: "GET",
     dataType: "json",
-    url: "../scripts/grandeepee.php",
-    data: {"tableaux": data}
+    url: "../scripts/save.php",
+    data: {"tableaux": data, "arme": weapon}
   }).done(function () {
     $(".ajax").removeClass("error").addClass("success").html("Sauvegarde réussie");
   }).fail(function (e) {
@@ -205,6 +205,12 @@ function sauvegarder(img){
     $(".ajax").removeClass("success").addClass("error").html("Erreur dans sauvegarder");
   });
   
+}
+
+function btn_sauvegarde(){
+  $(".sauvegarder").click(function() {
+    sauvegarder($("#arme").html());
+  })
 }
 
 function charger(type_arme){

@@ -1,9 +1,10 @@
 <?php
   $tab = $_GET["tableaux"];
+  $arme = $_GET["arme"];
   //var_dump($tab);
   
   $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
-  file_put_contents("donnees/grandeepee.json", $jsonstring);
+  file_put_contents("donnees/$arme.json", $jsonstring);
   
   echo true;
   

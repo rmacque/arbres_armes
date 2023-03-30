@@ -13,6 +13,8 @@ body {
 
 nav {
   padding: 30px;
+  width: 100%;
+  text-align: center;
 }
 nav a {
   display: inline-block;
@@ -26,6 +28,7 @@ table {
   border-collapse: collapse;
   text-align: center;
   width: 100%;
+  margin: 10px 0px;
 }
 table tr {
   border: 1px solid black;
@@ -187,18 +190,6 @@ td.col_arborescence {
 
 .icone {
   width: 20px;
-}
-
-.generation-1 {
-  background-color: violet;
-}
-
-.generation-2 {
-  background-color: blue;
-}
-
-.generation-3 {
-  background-color: lightskyblue;
 }
 
 /*# sourceMappingURL=arbres-armes.css.map */

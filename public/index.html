@@ -7,28 +7,16 @@
   <link rel="stylesheet" href="stylesheets/arbres-armes.css">
   <script src="../scripts/jquery-3.6.2.js"></script>
   <script src="../scripts/app.js"></script>
+  <script src="../scripts/navigation.js"></script>
 </head>
 
 <body>
   <nav>
-    <a href="#tab_Grandeepee">Grande &Eacute;pée</a>
-    <a href="#tab_Katana">Katana</a>
-    <a href="#tab_EB">&Eacute;pée Bouclier</a>
-    <a href="#tab_Dagues">Doubles Lames</a>
-    <a href="#tab_Marteau">Marteau</a>
-    <a href="#tab_Corne">Corne de chasse</a>
-    <a href="#tab_Lance">Lance</a>
-    <a href="#tab_LanceCanon">Lancecanon</a>
-    <a href="#tab_Morpho">Morpho-hache</a>
-    <a href="#tab_Volto">Volto-hache</a>
-    <a href="#tab_Insecto">Insectoglaive</a>
-    <a href="#tab_FusabLeger">Fusarbalète Léger</a>
-    <a href="#tab_FusabLourd">Fusarbalète Lourd</a>
-    <a href="#tab_Arc">Arc</a>
   </nav>
   <div id="content">
     <script>
-      charger("grandeepee");
+      navbar_create();
+      selec_arme();
       /*
       section_create('pétrifié', 'grandeepee');
       section_create('en fer', 'grandeepee');
@@ -52,10 +40,13 @@
 
   <footer>
     <div>
-      <button class="sauvegarder btn_lourd" onclick="sauvegarder('grandeepee')">Sauvegarder</button>
+      <button class="sauvegarder btn_lourd">Sauvegarder</button>
     </div>
     <div class="ajax error"></div>
   </footer>
+  <script>
+    btn_sauvegarde();
+  </script>
 </body>
 
 </html>
