@@ -1,11 +1,12 @@
 <?php
   $tab = $_GET["tableaux"];
   $arme = $_GET["arme"];
-  //var_dump($tab);
+  
   
   $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
   file_put_contents("donnees/$arme.json", $jsonstring);
-  
+  //var_dump($tab);
+  //var_dump($tab[0]["armes"][0]["arbre"]);
   echo true;
   
   /*
@@ -15,7 +16,11 @@
     foreach($section["armes"] as $arme){
       $tmp = [];
       if(isset($arme["arbre"])){
-        $tmp = $arme["arbre"];
+        //echo "a";
+        foreach($arme["arbre"] as $val){
+          //echo $val === "true";
+          $tmp[] = ($val === "true");
+        }
       }
       $armes_section[] = [
         "generation" => $arme["generation"],

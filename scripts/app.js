@@ -3,6 +3,11 @@
 const CHEMIN_IMAGES_ARMES = "../images/armes/";
 const CHEMIN_ICONES = "../images/icones/";
 const ATTRIBUTS = ["aucun", "feu", "eau", "glace", "foudre", "dragon", "paralysie", "poison", "poisse", "sommeil"];
+const NOTES_1 = ["white", "purple"];
+const NOTES_2_3 = ["blue", "lightblue", "red", "green", "yellow", "orange"];
+const LANCECANONS = ["normal", "large", "long"];
+const FIOLES_MORPHO =["force", "fatigue", "dragon", "poison", "paralysie", "elementaire"];
+const FIOLES_VOLTO =["antiblindage", "elementaire"];
 
 function test(){
   console.log("bbb");
@@ -37,15 +42,11 @@ function parentNodeNiv(node, niveau) {
   return res;
 }
 
-function stringToNode(string){
-  return $(string).get(0);
-}
-
 /**
  * @param {objet qui contient toutes les caractéristiques de l'arme}arme
  * construit une ligne de tableau avec ttes les infos de l'arme
  */
-function row_build(arme){
+function row_build(arme, type_arme){
   let row = "<tr class=\"armes\">";
 
   //Arborescence
@@ -59,15 +60,16 @@ function row_build(arme){
   if(typeof arme["arbre"] !== 'undefined'){
     arme["arbre"].forEach(branche => {
       row += "<span class=\"branche";
-
+      //console.log(Boolean(branche))
       //La conversion en json est foireuse, donc on fait double condition
+      //row += branche ? "" : " invisible";
+      
       if(branche == "false" || !branche){
         row += " invisible";
       }
-
-      //row += branche ? "" : " invisible";
+      
       row += "\"></span>"
-
+      
       //recopie de l'arborescence du parent
       new_arbre.push(branche)
     });
@@ -81,9 +83,9 @@ function row_build(arme){
   }
 
   row +="</div><img class=\"icone\" alt=\"icône introuvable\" src=\"" + CHEMIN_IMAGES_ARMES + arme["image"] + ".png\"><button class=\"btn_leger amelioration\">amélioration</button></td>";
-
-  //Specificite, nom, degats et tranchant
   row += "<td class=\"col_specificite\"></td>";
+
+  //nom, degats et tranchant
   row += "<td class=\"col_nom\"><input class=\"nom\" placeholder=\"Grande &Eacute;pée\" value=\""+ arme["nom"] +"\"/></td>";
   row += "<td class=\"col_degats\"><input class=\"degats\" placeholder=\"100\" value=\""+ arme["degats"] +"\"/></td>";
   row += "<td class=\"col_tranchant\">tranchant</td>";
@@ -109,24 +111,147 @@ function row_build(arme){
 
   row += "</tr>";
 
-  row = stringToNode(row);
+  row = $.parseHTML(row);
+
+  //Specificites
+  let spe = "";
+  let var2 = -1;
+  let var3 = -1;
+  switch(type_arme){
+    case 'corne':
+      spe += "<div class=\"note\">";
+      arme["specificite"].forEach(note => {
+        spe += "<span class=\"" + note + "\">♪</span>" //couleurs des notes
+      });
+      spe += "</div>";
+      spe = $.parseHTML(spe);
+      //Changement des notes a la volée
+      let notes = $(spe).find("span")
+      $(notes[0]).click(function(){
+        $(this).toggleClass("white").toggleClass("purple");
+      })
+      
+      $(notes[1]).click(function(){
+        $.each(NOTES_2_3, function(i, val){
+          if($(notes[1]).attr("class") == val){
+            var2 = i;
+          }
+        })
+        if(var2 + 1 < NOTES_2_3.length){
+          $(notes[1]).removeClass(NOTES_2_3[var2]).addClass(NOTES_2_3[var2+1])
+        }else{
+          $(notes[1]).removeClass(NOTES_2_3[var2]).addClass(NOTES_2_3[0])
+        }
+      })
+      $(notes[2]).click(function(){
+        $.each(NOTES_2_3, function(i, val){
+          if($(notes[2]).attr("class") == val){
+            var3 = i;
+          }
+        })
+        if(var3 + 1 < NOTES_2_3.length){
+          $(notes[2]).removeClass(NOTES_2_3[var3]).addClass(NOTES_2_3[var3+1])
+        }else{
+          $(notes[2]).removeClass(NOTES_2_3[var3]).addClass(NOTES_2_3[0])
+        }
+      })
+      break;
+
+    case 'lancecanon':
+      spe += "<div><span>" + arme["specificite"][0] + "</span> <span>" + arme["specificite"][1] + "</span></div>"  //details du canon
+      spe = $.parseHTML(spe);
+      $(spe).find("span").first().click(function(){
+        //type du canon
+        //On trouve la valeur selectionnee dans le tableau
+        let i=0;
+        let trouve = false;
+        while(i < LANCECANONS.length && !trouve){
+          if(LANCECANONS[i] == $(this).text()){
+            trouve = true;
+            i--;
+          }
+          i++;
+        }
+        if(i < LANCECANONS.length - 1){
+          $(this).text(LANCECANONS[i+1]);
+        }else{
+          $(this).text(LANCECANONS[0]);
+        }
+      })
+      //nb de tirs
+      $(spe).find("span").last().click(function(){
+        if($(this).text() != "4"){
+          $(this).text(parseInt($(this).text()) + 1)
+        }else{
+          $(this).text(1)
+        }
+      })
+      break;
+
+    case 'morpho-hache':
+      spe += "<div>" + arme["specificite"] + "</div>"; //type de fioles
+      spe = $.parseHTML(spe);
+      $(spe[0]).click(function(){
+        //On trouve la valeur selectionnee dans le tableau
+        let i = 0;
+        let trouve = false;
+        while(i < FIOLES_MORPHO.length && !trouve){
+          if(FIOLES_MORPHO[i] == $(this).text()){
+            trouve = true;
+            i--;
+          }
+          i++;
+        }
+        if(i < FIOLES_MORPHO.length - 1){
+          $(this).text(FIOLES_MORPHO[i+1])
+        }else{
+          $(this).text(FIOLES_MORPHO[0])
+        }
+      })
+      break;
+
+    case 'volto-hache':
+      spe += "<div>" + arme["specificite"] + "</div>"; //type de fioles
+      spe = $.parseHTML(spe);
+      $(spe).click(function(){
+        $(spe).text(($(spe).text() == "antiblindage") ? "elementaire" : "antiblindage")
+      })
+      break;
+
+    case 'insectoglaive':
+      spe += "<div>" + arme["specificite"] + "</div>";  //type d'insecte
+      spe = $.parseHTML(spe);
+      $(spe).click(function(){
+        $(spe).text(($(spe).text() == "lame") ? "masse" : "lame")
+      })
+      break;
+
+    default : 
+      spe += "<div></div>";
+      spe = $.parseHTML(spe);
+      break;
+  }
+
+  $(row).find(".col_specificite").append(spe);
 
   //lien entre les selects et l'image de l'attribut choisit
-  row.querySelector(".type_attribut").onchange = function(){
-    this.previousSibling.src = CHEMIN_ICONES + this.value +".webp";
-    if(this.value == ATTRIBUTS[0]){
-      this.previousSibling.previousSibling.disabled = true;
-      this.previousSibling.previousSibling.value = "";
+  $(row).find(".type_attribut").change(function(){
+    $(this).prev().attr("src", function(){ 
+      return CHEMIN_ICONES + $(row).find(".col_attribut .type_attribut").val() + ".webp"
+    })
+    if($(this).val() == ATTRIBUTS[0]){
+      $(row).find(".attribut").prop("disabled", true).prop("value", "");
     } else {
-      this.previousSibling.previousSibling.disabled = false;
+      $(row).find(".attribut").prop("disabled", false);
     }
-  };
+  });
 
   //Activation des boutons amelioration
-  row.querySelector(".amelioration").onclick = function() {
+  $(row).find(".amelioration").click(function() {
     row_append(row, {
       "generation": Number(arme["generation"]) + 1,
       "arbre": new_arbre,
+      "specificite": arme["specificite"],
       "image": arme["image"],
       "nom": "",
       "degats": "", 
@@ -135,8 +260,8 @@ function row_build(arme){
       "affinite": "0", 
       "fentes": "---", 
       "bonus": ""
-    });
-  };
+    }, type_arme);
+  });
   return row;
 }
 
@@ -144,61 +269,61 @@ function row_build(arme){
  * @param {L'element qui appelle} ligne_appelante 
  * @param {les donnees de l'arme} arme 
  */
-function row_append(ligne_appelante, arme) {
+function row_append(ligne_appelante, arme, type_arme) {
 
-  if(ligne_appelante.nextSibling != null){
+  if($(ligne_appelante).next() != null){
 
-    let tmp = Number(ligne_appelante.querySelector(".generation").innerText);
-
+    let tmp = parseInt($(ligne_appelante).find(".generation").html());
+    
     //On verifie si l'enfant a déja un frere, si c'est le cas, on change son arbre    
-    if(Number(ligne_appelante.querySelector(".generation").innerText) 
-    == Number(ligne_appelante.nextSibling.querySelector(".generation").innerText)){
+    if(parseInt($(ligne_appelante).find(".generation").html()) 
+    == parseInt($(ligne_appelante).next().find(".generation").html())){
       arme["arbre"][tmp - 1] = true;
     }
   }
 
-  let new_row = row_build(arme);
-  ligne_appelante.after(new_row);
+  let new_row = row_build(arme, type_arme);
+  $(ligne_appelante).after(new_row);
 }
 
 function sauvegarder(weapon){
   let data = [];
   let data_armes = [];
-  $("table").each(function(index, item){
-    item.querySelectorAll(".armes").forEach(arme => {
+  $.each($("table"), function(index, item){
+    $.each($(item).find(".armes"), function(i, arme){
       //Recuperation des données du tableau
       let arbre = [];
-
-      arme.querySelectorAll(".branche").forEach(e =>{
+      $.each($(arme).find(".branche"), function(j, e){
           arbre.push(!$(e).hasClass("invisible"))
       });
 
       data_armes.push({
-        "generation" : Number(arme.querySelector(".generation").innerText),
+        "generation" : parseInt($(arme).find(".generation").html()),
         "arbre": arbre,
         "image" : weapon,
-        "nom" : arme.querySelector(".nom").value,
-        "degats" : arme.querySelector(".degats").value,
-        "attribut" : arme.querySelector(".attribut").value,
-        "type_attribut" : arme.querySelector(".type_attribut").value,
-        "affinite" : arme.querySelector(".affinite").value,
-        "fentes" : arme.querySelector(".fentes").value,
-        "bonus" : arme.querySelector(".bonus").value
+        "nom" : $(arme).find(".nom").val(),
+        "degats" : $(arme).find(".degats").val(),
+        "attribut" : $(arme).find(".attribut").val(),
+        "type_attribut" : $(arme).find(".type_attribut").val(),
+        "affinite" : $(arme).find(".affinite").val(),
+        "fentes" : $(arme).find(".fentes").html(),
+        "bonus" : $(arme).find(".bonus").html()
       });
     });
     //data_armes contient les données de toutes les armes d'une section desormais
-    data.push({"nom_section" : item.querySelector(".nom_arbre").innerText, "armes" : data_armes});
+    data.push({"nom_section" : $(item).find(".nom_arbre").html(), "armes" : data_armes});
     data_armes = [];
   });
   
-  //console.log(data, weapon);
+  console.log(data);
   
   $.ajax({
     method: "GET",
     dataType: "json",
     url: "../scripts/save.php",
     data: {"tableaux": data, "arme": weapon}
-  }).done(function () {
+  }).done(function (obj) {
+    console.log(obj);
     $(".ajax").removeClass("error").addClass("success").html("Sauvegarde réussie");
   }).fail(function (e) {
     console.log(e);
@@ -221,7 +346,7 @@ function charger(type_arme){
     data: {"arme": type_arme}
   }).done(function (obj) {
     let section;
-    obj.forEach(e => {
+    $.each(obj, function(index, e){
       //Le titre de la section
       section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ e["nom_section"] +"</th></tr>";
       //2eme ligne:Les noms des categories
@@ -238,11 +363,11 @@ function charger(type_arme){
       section += "<th class=\"col_bonus\">Bonus</th>";
 
       section += "</tr></thead><tbody></tbody></table>";
-      section = stringToNode(section);
+      section = $.parseHTML(section);
 
       //Les armes
-      e["armes"].forEach(arme => {
-        section.querySelector("tbody").append(row_build(arme));
+      $.each(e["armes"], function(j, arme){
+        $(section).find("tbody").append(row_build(arme, type_arme));
       })      
       
       $("#content").append(section);
@@ -293,7 +418,7 @@ function section_create(titre, img) {
   section += "</tbody></table>";
   
   //cast du string en node
-  section = stringToNode(section);
+  section = $.parseHTML(section);
 
   content.append(section);
   //Activation du bouton amelioration

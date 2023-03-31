@@ -16,13 +16,6 @@ nav {
   width: 100%;
   text-align: center;
 }
-nav a {
-  display: inline-block;
-  /*
-    margin: 10px;
-    min-width: 150px;
-  */
-}
 
 table {
   border-collapse: collapse;
@@ -42,16 +35,11 @@ table td, table th {
   width: fit-content;
 }
 
-.col_attribut img {
-  width: 20px;
-  height: 20px;
-}
-
 input[class=nom] {
   width: 20em;
   text-align: center;
 }
-input[class=degats], input[class=attribut], input[class=affinite] {
+input[class=degats], input[class=affinite] {
   width: 1.6em;
   text-align: right;
 }
@@ -190,6 +178,56 @@ td.col_arborescence {
 
 .icone {
   width: 20px;
+}
+
+/*
+td.col_attribut{
+
+}
+*/
+.col_attribut img {
+  width: 20px;
+  height: 20px;
+}
+.col_attribut input {
+  width: 1.6em;
+  text-align: right;
+}
+
+.col_specificite {
+  width: 10em;
+}
+
+.note {
+  background-color: darkgray;
+}
+.note span {
+  font-size: 1.1em;
+  margin: 0px 5px;
+}
+.note .white {
+  color: white;
+}
+.note .purple {
+  color: purple;
+}
+.note .blue {
+  color: blue;
+}
+.note .lightblue {
+  color: lightblue;
+}
+.note .red {
+  color: red;
+}
+.note .green {
+  color: green;
+}
+.note .yellow {
+  color: yellow;
+}
+.note .orange {
+  color: orange;
 }
 
 /*# sourceMappingURL=arbres-armes.css.map */
