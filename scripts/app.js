@@ -44,6 +44,7 @@ function parentNodeNiv(node, niveau) {
 
 /**
  * @param {objet qui contient toutes les caractéristiques de l'arme}arme
+ * @param {marteau, katana, lance, ...}type_arme
  * construit une ligne de tableau avec ttes les infos de l'arme
  */
 function row_build(arme, type_arme){
@@ -119,7 +120,7 @@ function row_build(arme, type_arme){
   let var3 = -1;
   switch(type_arme){
     case 'corne':
-      spe += "<div class=\"note\">";
+      spe += "<div class=\"notes\">";
       arme["specificite"].forEach(note => {
         spe += "<span class=\"" + note + "\">♪</span>" //couleurs des notes
       });
@@ -132,11 +133,10 @@ function row_build(arme, type_arme){
       })
       
       $(notes[1]).click(function(){
-        $.each(NOTES_2_3, function(i, val){
-          if($(notes[1]).attr("class") == val){
-            var2 = i;
-          }
-        })
+        let i=0;
+        while(i < NOTES_2_3.length && NOTES_2_3[i] != $(this).attr("class")){
+          i++;
+        }
         if(var2 + 1 < NOTES_2_3.length){
           $(notes[1]).removeClass(NOTES_2_3[var2]).addClass(NOTES_2_3[var2+1])
         }else{
@@ -144,11 +144,10 @@ function row_build(arme, type_arme){
         }
       })
       $(notes[2]).click(function(){
-        $.each(NOTES_2_3, function(i, val){
-          if($(notes[2]).attr("class") == val){
-            var3 = i;
-          }
-        })
+        let i=0;
+        while(i < NOTES_2_3.length && NOTES_2_3[i] != $(this).attr("class")){
+          i++;
+        }
         if(var3 + 1 < NOTES_2_3.length){
           $(notes[2]).removeClass(NOTES_2_3[var3]).addClass(NOTES_2_3[var3+1])
         }else{
@@ -164,12 +163,7 @@ function row_build(arme, type_arme){
         //type du canon
         //On trouve la valeur selectionnee dans le tableau
         let i=0;
-        let trouve = false;
-        while(i < LANCECANONS.length && !trouve){
-          if(LANCECANONS[i] == $(this).text()){
-            trouve = true;
-            i--;
-          }
+        while(i < LANCECANONS.length && LANCECANONS[i] != $(this).text()){
           i++;
         }
         if(i < LANCECANONS.length - 1){
@@ -194,12 +188,7 @@ function row_build(arme, type_arme){
       $(spe[0]).click(function(){
         //On trouve la valeur selectionnee dans le tableau
         let i = 0;
-        let trouve = false;
-        while(i < FIOLES_MORPHO.length && !trouve){
-          if(FIOLES_MORPHO[i] == $(this).text()){
-            trouve = true;
-            i--;
-          }
+        while(i < FIOLES_MORPHO.length && FIOLES_MORPHO[i] != $(this).text()){
           i++;
         }
         if(i < FIOLES_MORPHO.length - 1){
@@ -249,7 +238,7 @@ function row_build(arme, type_arme){
   //Activation des boutons amelioration
   $(row).find(".amelioration").click(function() {
     row_append(row, {
-      "generation": Number(arme["generation"]) + 1,
+      "generation": parseInt(arme["generation"]) + 1,
       "arbre": new_arbre,
       "specificite": arme["specificite"],
       "image": arme["image"],
@@ -286,102 +275,55 @@ function row_append(ligne_appelante, arme, type_arme) {
   $(ligne_appelante).after(new_row);
 }
 
-function sauvegarder(weapon){
-  let data = [];
-  let data_armes = [];
-  $.each($("table"), function(index, item){
-    $.each($(item).find(".armes"), function(i, arme){
-      //Recuperation des données du tableau
-      let arbre = [];
-      $.each($(arme).find(".branche"), function(j, e){
-          arbre.push(!$(e).hasClass("invisible"))
-      });
+/**
+ * @param {nom de la section} titre 
+ * @param {type de l'arme} type_arme 
+ */
+function section_create(titre, type_arme) {
+  //Le titre de la section
+  section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ titre +"</th></tr>";
+  //2eme ligne:Les noms des categories
+  section += "<tr class=\"caracteristiques\">";
 
-      data_armes.push({
-        "generation" : parseInt($(arme).find(".generation").html()),
-        "arbre": arbre,
-        "image" : weapon,
-        "nom" : $(arme).find(".nom").val(),
-        "degats" : $(arme).find(".degats").val(),
-        "attribut" : $(arme).find(".attribut").val(),
-        "type_attribut" : $(arme).find(".type_attribut").val(),
-        "affinite" : $(arme).find(".affinite").val(),
-        "fentes" : $(arme).find(".fentes").html(),
-        "bonus" : $(arme).find(".bonus").html()
-      });
-    });
-    //data_armes contient les données de toutes les armes d'une section desormais
-    data.push({"nom_section" : $(item).find(".nom_arbre").html(), "armes" : data_armes});
-    data_armes = [];
-  });
-  
-  console.log(data);
-  
-  $.ajax({
-    method: "GET",
-    dataType: "json",
-    url: "../scripts/save.php",
-    data: {"tableaux": data, "arme": weapon}
-  }).done(function (obj) {
-    console.log(obj);
-    $(".ajax").removeClass("error").addClass("success").html("Sauvegarde réussie");
-  }).fail(function (e) {
-    console.log(e);
-    $(".ajax").removeClass("success").addClass("error").html("Erreur dans sauvegarder");
-  });
-  
+  section += "<th class=\"col_arborescence\">Arborescence</th>";
+  section += "<th class=\"col_specificite\">Specificite</th>";
+  section += "<th class=\"col_nom\">Nom</th>";
+  section += "<th class=\"col_degats\">Dégâts</th>";
+  section += "<th class=\"col_tranchant\">Tranchant</th>";
+  section += "<th class=\"col_attribut\">Attribut</th>";
+  section += "<th class=\"col_affinite\">Affinité</th>";
+  section += "<th class=\"col_fentes\">Fentes</th>";
+  section += "<th class=\"col_bonus\">Bonus</th>";
+
+  section += "</tr></thead><tbody></tbody></table>";
+  section = $.parseHTML(section);
+
+  let specificite;
+  switch (type_arme){
+    case "corne":
+      specificite = ["white","blue","red"];
+    break;
+    case "lancecanon":
+      specificite = ["normal","1"];
+    break;
+    case "morpho-hache":
+      specificite = "force";
+    break;
+    case "volto-hache":
+      specificite = "antiblindage";
+    break;
+    case "insectoglaive":
+      specificite = "lame";
+    break;
+    default:
+    break;
+  }
+  $(section).find("tbody").append(row_build(
+    {"generation" : 0, "arbre" : [], "image": type_arme, "specificite" : specificite, "nom" : "arme" + titre, "degats": 100, "attribut": "", "type_attribut": "aucun", "affinite" : 0, "fentes" : "---", "bonus" : ""}
+    , type_arme));
+
+  $("#content").append(section);
 }
-
-function btn_sauvegarde(){
-  $(".sauvegarder").click(function() {
-    sauvegarder($("#arme").html());
-  })
-}
-
-function charger(type_arme){
-  $.ajax({
-    method: "GET",
-    dataType: "json",
-    url: "../scripts/load.php",
-    data: {"arme": type_arme}
-  }).done(function (obj) {
-    let section;
-    $.each(obj, function(index, e){
-      //Le titre de la section
-      section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ e["nom_section"] +"</th></tr>";
-      //2eme ligne:Les noms des categories
-      section += "<tr class=\"caracteristiques\">";
-
-      section += "<th class=\"col_arborescence\">Arborescence</th>";
-      section += "<th class=\"col_specificite\">Specificite</th>";
-      section += "<th class=\"col_nom\">Nom</th>";
-      section += "<th class=\"col_degats\">Dégâts</th>";
-      section += "<th class=\"col_tranchant\">Tranchant</th>";
-      section += "<th class=\"col_attribut\">Attribut</th>";
-      section += "<th class=\"col_affinite\">Affinité</th>";
-      section += "<th class=\"col_fentes\">Fentes</th>";
-      section += "<th class=\"col_bonus\">Bonus</th>";
-
-      section += "</tr></thead><tbody></tbody></table>";
-      section = $.parseHTML(section);
-
-      //Les armes
-      $.each(e["armes"], function(j, arme){
-        $(section).find("tbody").append(row_build(arme, type_arme));
-      })      
-      
-      $("#content").append(section);
-    })
-    
-  }).fail(function (e) {
-    console.log(e);
-    $(".ajax").removeClass("success").addClass("error").html("Erreur dans charger");
-  });
-}
-
-
-
-
 
 /************************************
  * 
@@ -397,7 +339,6 @@ function charger(type_arme){
  * @param {le nom de la miniature de l'arme} img 
  */
 function section_create(titre, img) {
-  let content = $("#content");
   let section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+titre+"</th></tr>";
   
   //2eme ligne
@@ -420,7 +361,7 @@ function section_create(titre, img) {
   //cast du string en node
   section = $.parseHTML(section);
 
-  content.append(section);
+  $("#content").append(section);
   //Activation du bouton amelioration
   section.querySelector(".amelioration").onclick = function() {
     row_append(parentNodeNiv(this, 3), 0, img);

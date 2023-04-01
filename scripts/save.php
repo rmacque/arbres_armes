@@ -4,10 +4,9 @@
   
   
   $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);
-  file_put_contents("donnees/$arme.json", $jsonstring);
+  echo file_put_contents("donnees/$arme.json", $jsonstring);
   //var_dump($tab);
   //var_dump($tab[0]["armes"][0]["arbre"]);
-  echo true;
   
   /*
   $data = [];
@@ -40,7 +39,5 @@
   }
   
   $jsonstring = json_encode($data, JSON_PRETTY_PRINT);
-  file_put_contents("donnees/grandeepee2.json", $jsonstring);
-  
-  echo true;
+  echo file_put_contents("donnees/grandeepee2.json", $jsonstring);
   */

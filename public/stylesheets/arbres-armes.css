@@ -198,35 +198,35 @@ td.col_attribut{
   width: 10em;
 }
 
-.note {
+.notes {
   background-color: darkgray;
 }
-.note span {
+.notes span {
   font-size: 1.1em;
   margin: 0px 5px;
 }
-.note .white {
+.notes .white {
   color: white;
 }
-.note .purple {
+.notes .purple {
   color: purple;
 }
-.note .blue {
+.notes .blue {
   color: blue;
 }
-.note .lightblue {
+.notes .lightblue {
   color: lightblue;
 }
-.note .red {
+.notes .red {
   color: red;
 }
-.note .green {
+.notes .green {
   color: green;
 }
-.note .yellow {
+.notes .yellow {
   color: yellow;
 }
-.note .orange {
+.notes .orange {
   color: orange;
 }
 
