@@ -8,7 +8,7 @@ function navbar_create(){
   ARMES.forEach(e =>{
     html += "<img src=\"" + CHEMIN_ICONES_ARMES + e + ".png\" value=\"" + e + "\"/>"
   });
-  html += "<div id=\"arme\" hidden>grandeepee</div>"
+  html += "<div id=\"arme\" hidden></div>"
   $("nav").append(html);
 }
 

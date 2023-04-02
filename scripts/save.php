@@ -1,6 +1,6 @@
 <?php
-  $tab = $_GET["tableaux"];
-  $arme = $_GET["arme"];
+  $tab = $_POST["tableaux"];
+  $arme = $_POST["arme"];
   
   
   $jsonstring = json_encode($tab, JSON_PRETTY_PRINT);

@@ -51,8 +51,8 @@ function sauvegarder(weapon){
         "attribut" : $(arme).find(".attribut").val(),
         "type_attribut" : $(arme).find(".type_attribut").val(),
         "affinite" : $(arme).find(".affinite").val(),
-        "fentes" : $(arme).find(".fentes").html(),
-        "bonus" : $(arme).find(".bonus").html()
+        "fentes" : $(arme).find(".fentes").val(),
+        "bonus" : $(arme).find(".bonus").val()
       });
     });
     //data_armes contient les données de toutes les armes d'une section desormais
@@ -63,7 +63,7 @@ function sauvegarder(weapon){
   //console.log(data);
   
   $.ajax({
-    method: "GET",
+    method: "POST",
     dataType: "json",
     url: "../scripts/save.php",
     data: {"tableaux": data, "arme": weapon}
@@ -78,14 +78,17 @@ function sauvegarder(weapon){
 }
 
 function btn_sauvegarde(){
-  $(".sauvegarder").click(function() {
-    sauvegarder($("#arme").html());
-  })
+  if(typeof $("#arme").text() !== ''){
+    $(".sauvegarder").click(function() {
+      sauvegarder($("#arme").text());
+    })
+  }
+  
 }
 
 function charger(type_arme){
   $.ajax({
-    method: "GET",
+    method: "POST",
     dataType: "json",
     url: "../scripts/load.php",
     data: {"arme": type_arme}
@@ -118,6 +121,15 @@ function charger(type_arme){
       $("#content").append(section);
     })
     
+  }).done(function(){
+    let navsection = "<div>";
+    $.each($(".nom_arbre"), function(i, val){
+      navsection += "<a href=\"" + val + "\">" + $(val).text() + "</a>";
+    })
+    navsection += "</div>";
+    console.log(navsection);
+    $("#content").before($.parseHTML(navsection));
+
   }).fail(function (e) {
     console.log(e);
     $(".ajax").removeClass("success").addClass("error").html("Erreur dans charger");

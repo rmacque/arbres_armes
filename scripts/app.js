@@ -107,12 +107,27 @@ function row_build(arme, type_arme){
   row += "</select></td>";
 
   row += "<td class=\"col_affinite\"><input class=\"affinite\" placeholder=\"0\" value=\""+ arme["affinite"] +"\"> %</input></td>";
-  row += "<td class=\"col_fentes\"><input class=\"fentes\" placeholder=\"---\" value=\""+ arme["fentes"] +"\"/></td>";
+  row += "<td class=\"col_fentes\"></td>";
   row += "<td class=\"col_bonus\"><input class=\"bonus\" placeholder=\"ex:15 def\" value=\""+ arme["bonus"] +"\"/></td>";
-
+  //<input class=\"fentes\" placeholder=\"---\" value=\""+ arme["fentes"] +"\"/>
   row += "</tr>";
-
   row = $.parseHTML(row);
+
+  //Dynamisme des fentes
+  let fentes = "<div class=\"fentes\">" + arme["fentes"] + "</div>";
+  fentes = $.parseHTML(fentes);
+  $(fentes).click(function(){
+    if($(this).text() == "---"){
+      $(this).text("O--");
+    } else if($(this).text() == "O--"){
+      $(this).text("OO-");
+    } else if($(this).text() == "OO-"){
+      $(this).text("OOO");
+    } else {
+      $(this).text("---");
+    }
+  })
+  $(row).find(".col_fentes").append(fentes);
 
   //Specificites
   let spe = "";
