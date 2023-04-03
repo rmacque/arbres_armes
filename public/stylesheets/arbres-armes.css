@@ -63,13 +63,17 @@ input[class=bonus] {
   font-weight: bold;
 }
 
-.section-create {
-  background-color: bisque;
+.section_create {
+  text-align: center;
 }
 
 footer {
   margin: auto;
   text-align: center;
+}
+
+nav img {
+  margin: 0px 10px;
 }
 
 /*************
@@ -132,6 +136,10 @@ footer {
 .amelioration {
   background-color: bisque;
   float: right;
+}
+
+.section_create button {
+  background-color: bisque;
 }
 
 td.col_arborescence {

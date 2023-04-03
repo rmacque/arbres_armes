@@ -294,12 +294,12 @@ function row_append(ligne_appelante, arme, type_arme) {
  * @param {nom de la section} titre 
  * @param {type de l'arme} type_arme 
  */
-function section_create(titre, type_arme) {
+function section_create(titre) {
+  let type_arme = $("#arme").text()
   //Le titre de la section
-  section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ titre +"</th></tr>";
+  let section = "<table><thead><tr id=\"" + titre + "\" class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ titre +"</th></tr>";
   //2eme ligne:Les noms des categories
   section += "<tr class=\"caracteristiques\">";
-
   section += "<th class=\"col_arborescence\">Arborescence</th>";
   section += "<th class=\"col_specificite\">Specificite</th>";
   section += "<th class=\"col_nom\">Nom</th>";
@@ -309,7 +309,6 @@ function section_create(titre, type_arme) {
   section += "<th class=\"col_affinite\">Affinité</th>";
   section += "<th class=\"col_fentes\">Fentes</th>";
   section += "<th class=\"col_bonus\">Bonus</th>";
-
   section += "</tr></thead><tbody></tbody></table>";
   section = $.parseHTML(section);
 
@@ -334,7 +333,7 @@ function section_create(titre, type_arme) {
     break;
   }
   $(section).find("tbody").append(row_build(
-    {"generation" : 0, "arbre" : [], "image": type_arme, "specificite" : specificite, "nom" : "arme" + titre, "degats": 100, "attribut": "", "type_attribut": "aucun", "affinite" : 0, "fentes" : "---", "bonus" : ""}
+    {"generation" : 0, "arbre" : [], "image": type_arme, "specificite" : specificite, "nom" : "arme " + titre, "degats": 100, "attribut": "", "type_attribut": "aucun", "affinite" : 0, "fentes" : "---", "bonus" : ""}
     , type_arme));
 
   $("#content").append(section);
@@ -348,37 +347,3 @@ function section_create(titre, type_arme) {
  * 
  ***********************************/
 
-
-/**
- * @param {nom de la section} titre 
- * @param {le nom de la miniature de l'arme} img 
- */
-function section_create(titre, img) {
-  let section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+titre+"</th></tr>";
-  
-  //2eme ligne
-  section += "<tr class=\"caracteristiques\"><th>Arborescence</th><th>Rareté</th><th>Nom</th><th>Dégâts</th><th>Tranchant</th><th>Attribut</th><th>Affinité</th><th>Fentes</th><th>Bonus</th></tr></thead><tbody>";
-  
-  //3eme ligne
-  section += "<tr class=\"armes\"><td><div class=\"esthetique\"><span class=\"generation\" hidden>0</span><span class=\"origine\"></span></div></td>";
-  section += "<td><div><img alt=\"ne marche pas\" src=\"" + CHEMIN_IMAGES_ARMES + img + ".png\" class=\"grandeepee\"></div><div><button class=\"btn_leger amelioration\">amélioration</button></div></td>";
-
-  section += "<td><input class=\"nom\" placeholder=\"&Eacute;pée " + titre + "e\"/></td>";
-  section += "<td><input class=\"degats\" placeholder=\"100\"/></td>";
-  section += "<td>tranchant</td>";
-  section += "<td><input class=\"attribut\" placeholder=\"10\"/></td>";
-  section += "<td><input class=\"affinite\" placeholder=\"0\"> %</input></td>";
-  section += "<td><input class=\"fentes\" placeholder=\"OOO\"/></td>";
-  section += "<td><input class=\"bonus\" placeholder=\"ex:15 def\"/></td>";
-  section += "</tr>";
-  section += "</tbody></table>";
-  
-  //cast du string en node
-  section = $.parseHTML(section);
-
-  $("#content").append(section);
-  //Activation du bouton amelioration
-  section.querySelector(".amelioration").onclick = function() {
-    row_append(parentNodeNiv(this, 3), 0, img);
-  };
-}

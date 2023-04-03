@@ -51,17 +51,17 @@ function sauvegarder(weapon){
         "attribut" : $(arme).find(".attribut").val(),
         "type_attribut" : $(arme).find(".type_attribut").val(),
         "affinite" : $(arme).find(".affinite").val(),
-        "fentes" : $(arme).find(".fentes").val(),
+        "fentes" : $(arme).find(".fentes").text(),
         "bonus" : $(arme).find(".bonus").val()
       });
     });
     //data_armes contient les données de toutes les armes d'une section desormais
-    data.push({"nom_section" : $(item).find(".nom_arbre").html(), "armes" : data_armes});
+    data.push({"nom_section" : $(item).find(".nom_arbre").text(), "armes" : data_armes});
     data_armes = [];
   });
   
-  //console.log(data);
-  
+  console.log(data);
+  /*
   $.ajax({
     method: "POST",
     dataType: "json",
@@ -74,16 +74,7 @@ function sauvegarder(weapon){
     console.log(e);
     $(".ajax").removeClass("success").addClass("error").html("Erreur dans sauvegarder");
   });
-  
-}
-
-function btn_sauvegarde(){
-  if(typeof $("#arme").text() !== ''){
-    $(".sauvegarder").click(function() {
-      sauvegarder($("#arme").text());
-    })
-  }
-  
+  */
 }
 
 function charger(type_arme){
@@ -96,7 +87,7 @@ function charger(type_arme){
     let section;
     $.each(obj, function(index, e){
       //Le titre de la section
-      section = "<table><thead><tr class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ e["nom_section"] +"</th></tr>";
+      section = "<table><thead><tr id=\""+ e["nom_section"] + "\" class=\"titre\"><th colspan=\"9\" class=\"nom_arbre\">"+ e["nom_section"] +"</th></tr>";
       //2eme ligne:Les noms des categories
       section += "<tr class=\"caracteristiques\">";
 
@@ -122,13 +113,11 @@ function charger(type_arme){
     })
     
   }).done(function(){
-    let navsection = "<div>";
+    let navsection = "";
     $.each($(".nom_arbre"), function(i, val){
-      navsection += "<a href=\"" + val + "\">" + $(val).text() + "</a>";
+      navsection += "<a href=\"#" + $(val).text() + "\">" + $(val).text() + "</a>";
     })
-    navsection += "</div>";
-    console.log(navsection);
-    $("#content").before($.parseHTML(navsection));
+    $(".nav_section").html(navsection);
 
   }).fail(function (e) {
     console.log(e);
