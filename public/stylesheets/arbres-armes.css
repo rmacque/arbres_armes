@@ -142,6 +142,30 @@ nav img {
   background-color: bisque;
 }
 
+a.lien_section {
+  margin: 0px 2px;
+  padding: 2px;
+  color: maroon;
+  text-decoration: none;
+}
+
+.nav_section {
+  text-align: center;
+}
+
+/*
+border-top: solid 2px lightgray;
+  border-right: solid 2px gray;
+  border-bottom: solid 2px gray;
+  border-left: solid 2px lightgray;
+
+  &:active{
+    border-top: solid 2px gray;
+    border-right: solid 2px lightgray;
+    border-bottom: solid 2px lightgray;
+    border-left: solid 2px gray;
+  }
+  */
 td.col_arborescence {
   text-align: justify;
 }

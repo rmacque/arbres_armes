@@ -113,10 +113,11 @@ function charger(type_arme){
     })
     
   }).done(function(){
-    let navsection = "";
+    let navsection = "<div class=\"nav_section\">";
     $.each($(".nom_arbre"), function(i, val){
-      navsection += "<a href=\"#" + $(val).text() + "\">" + $(val).text() + "</a>";
+      navsection += "<a href=\"#" + $(val).text() + "\" class=\"lien_section\">#" + $(val).text() + "</a>";
     })
+    navsection += "</div>"
     $(".nav_section").html(navsection);
 
   }).fail(function (e) {

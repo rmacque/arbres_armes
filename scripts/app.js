@@ -131,8 +131,6 @@ function row_build(arme, type_arme){
 
   //Specificites
   let spe = "";
-  let var2 = -1;
-  let var3 = -1;
   switch(type_arme){
     case 'corne':
       spe += "<div class=\"notes\">";
@@ -149,24 +147,40 @@ function row_build(arme, type_arme){
       
       $(notes[1]).click(function(){
         let i=0;
-        while(i < NOTES_2_3.length && NOTES_2_3[i] != $(this).attr("class")){
+        while(NOTES_2_3[i] != $(this).attr("class") && i < NOTES_2_3.length){
           i++;
         }
-        if(var2 + 1 < NOTES_2_3.length){
-          $(notes[1]).removeClass(NOTES_2_3[var2]).addClass(NOTES_2_3[var2+1])
-        }else{
-          $(notes[1]).removeClass(NOTES_2_3[var2]).addClass(NOTES_2_3[0])
+        if(NOTES_2_3[i + 1] == $(notes[2]).attr("class")){
+          if(i + 2 < NOTES_2_3.length){
+            $(notes[1]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[i+2])
+          } else{
+            $(notes[1]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[0])
+          }
+        }else if(i + 1 < NOTES_2_3.length){
+          $(notes[1]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[i+1])
+        }else if($(notes[2]).attr("class") != NOTES_2_3[0]){
+          $(notes[1]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[0])
+        }else {
+          $(notes[1]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[1])
         }
       })
       $(notes[2]).click(function(){
         let i=0;
-        while(i < NOTES_2_3.length && NOTES_2_3[i] != $(this).attr("class")){
+        while(NOTES_2_3[i] != $(this).attr("class") && i < NOTES_2_3.length){
           i++;
         }
-        if(var3 + 1 < NOTES_2_3.length){
-          $(notes[2]).removeClass(NOTES_2_3[var3]).addClass(NOTES_2_3[var3+1])
+        if(NOTES_2_3[i + 1] == $(notes[1]).attr("class")){
+          if(i + 2 < NOTES_2_3.length){
+            $(notes[2]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[i+2])
+          } else{
+            $(notes[2]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[0])
+          }
+        }else if(i + 1 < NOTES_2_3.length){
+          $(notes[2]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[i+1])
+        }else if($(notes[1]).attr("class") != NOTES_2_3[0]){
+          $(notes[2]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[0])
         }else{
-          $(notes[2]).removeClass(NOTES_2_3[var3]).addClass(NOTES_2_3[0])
+          $(notes[2]).removeClass(NOTES_2_3[i]).addClass(NOTES_2_3[1])
         }
       })
       break;
